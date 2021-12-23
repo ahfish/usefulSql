@@ -10,67 +10,104 @@ ALTER TABLE market_price add PRIMARY KEY
 select * from market_price limit 2
 select * from market_price where id = 1593615600
 
+select time from market_price mp  where code = 'IXIC' and interval_min = 1 order by "time" limit 1
+union
+select time from market_price mp  where code = 'IXIC' and interval_min = 60 order by "time" limit 1
+select time from market_price mp  where code = 'IXIC' and interval_min = 1440 order by "time" limit 1
+select * from market_price mp  where code = 'DXY' and interval_min = 1440 order by "time" limit 1
+
+select * from market_price_dxy_daily mpdd order by time desc
+select * from market_price_eurusd_daily mpdd order by time desc
+select * from market_price_oj_daily mpdd order by time desc
+
+
+select * from market_price mp where code = 'EURUSD' and interval_min = 60 and id = 1618531200
+
+
+select * from market_price_oj_hourly order by time desc
+
+--------------------------------------------------------
+select * from market_price_eurusd_hourly mpeh order by time desc
+insert into market_price_cadusd_hourly(id, high, low, "close", "open", "time") 
+select id/1000, high, low, "close", "open", "time" from vendor_market_price vmp where code = 'CADUSD' and interval_min = 60 and "time" >= '2021-04-15' and "time" < '2021-04-16' and id/1000 not in (
+select id from market_price_cadusd_hourly mpeem where "time" >= '2021-04-15' and "time" < '2021-04-16' 
+)
+
+select * from market_price_cadusd_daily order by time desc
+
+select * from market_price_cadusd_every_minute mpeem where "time" >= '2021-04-15' and "time" < '2021-04-16' order by time
+
+insert into market_price_cadusd_every_minute(id, high, low, "close", "open", "time") 
+select id/1000, high, low, "close", "open", "time" from vendor_market_price vmp where code = 'CADUSD' and interval_min = 1 and "time" >= '2021-04-15' and "time" < '2021-04-16' and id/1000 not in (
+select id from market_price_cadusd_every_minute mpeem where "time" >= '2021-04-15' and "time" < '2021-04-16' 
+) 
+
+select id/1000, high, low, "close", "open", "time" from vendor_market_price vmp where code = 'EURUSD' and interval_min = 1 and "time" >= '2021-04-14' and "time" < '2021-04-17' and id/1000 not in (
+select id from market_price where code = 'EURUSD' and interval_min =1 and "time" >= '2021-04-14' and "time" < '2021-04-17' 
+) order by time
+
+select * from vendor_market_price vmp where code = 'CHFUSD' order by time desc
+select * from market_price_chfusd_every_minute order by time desc
+select * from market_price_y_minute order by time desc
+select * from market_price_gbpusd_daily  order by time desc
+select * from vendor_market_price vmp where code = 'USDJPY'
+select * from market_price where code = 'EURUSD' and interval_min =1 and id = 1618520460
+
+--------------------------------------------------------
+select * from market_price_cadusd_hourly mpeem where "time" >= '2021-04-15' and "time" < '2021-04-16'
+select * from market_price_audusd_hourly mpeem where "time" >= '2021-04-15' and "time" < '2021-04-16'
+
+insert into market_price(id, high, low, "close", "open", "time", interval_min, code)
+select id/1000, high, low, "close", "open", "time", 60, 'EURUSD' from vendor_market_price vmp where code = 'EURUSD' and interval_min = 60 and "time" >= '2021-04-15' and "time" < '2021-04-16' and id/1000 not in (
+select id from market_price where  code = 'EURUSD' and interval_min = 60  and "time" >= '2021-04-15' and "time" < '2021-04-16' 
+)
+
+select * from market_price where  code = 'EURUSD' and interval_min = 60  and "time" >= '2021-04-15' and "time" < '2021-04-16'
+select * from market_price where  code = 'CADUSD' and interval_min = 60  and "time" >= '2021-04-15' and "time" < '2021-04-16'
+select * from market_price_cadusd_hourly mpeem where "time" >= '2021-04-15' and "time" < '2021-04-16'
+
+
+
+select * from vendor_market_price vmp where code = 'CADUSD' and interval_min = 60 order by id desc
+
+1618444800000
+1618444800
+CTRADER	1618448400000	1.1989800000	1.1972300000	1.1974100000	1.1986100000	2021-04-15 09:00:00	60	EURUSD
+CTRADER	1618444800000	1.1988700000	1.1981500000	1.1986200000	1.1983100000	2021-04-15 08:00:00	60	EURUSD
+
+select * from market_price_dxy_daily mpdd order by time desc
+
+select * from market_price_axjo_hourly mpdd order by time desc
+select * from market_price_uk100_hourly mpdd order by time 
+select * from market_price_jp225_hourly mpdd order by time desc
+select * from market_price_jp225_daily mpdd order by time 
+select * from market_price_fchi_daily mpdd order by time desc
+select * from market_price_fchi_hourly mpdd order by time
+select * from market_price_xrpusd_hourly mpdd order by time desc
+select * from market_price_xrpusd_hourly mpdd order by time 
+XRPUSD
+FCHI
+
+UK100
+AXJO
+
+select * from market_price_dxy_daily mpdd where id = 1617926400 or id = 1617840000
+select * from market_price_cadusd_every_minute mpcem order by id desc
+--delete from  market_price_dxy_daily mpdd where id = 1617926400 or id = 1617840000
+
+select * from market_price_eth_every_minute mpeem  order by time desc
+select * from market_price_cadusd_every_minute mpeem  order by time desc
+select * from market_price_eth_hourly mpdh order by time desc
+select * from market_price_dxy_every_five_minute mpdefm order by time desc
+select * from market_price mp  where code = 'NZDUSD' and interval_min = 60 order by time desc
+select * from market_price mp  where code = 'ETH' and interval_min = 60 order by time desc
 select * from market_price mp  where code = 'EURUSD' and interval_min = 1 and "time" > '2017-12-11'  and  "time" < '2017-12-12 05:59' order by time 
 select * from market_price mp  where code = 'CADUSD' and interval_min = 1440  and "time" > '1977-12-01'  and  "time" < '2017-12-12 05:59'  order by time asc
-select * from market_price mp  where code = 'CADUSD' and interval_min = 1  order by time desc
-select * from market_price mp  where code = 'JPYUSD' and interval_min = 1  order by time 
-select * from market_price mp  where code = 'USDJPY' and interval_min = 1  order by time
-select * from market_price mp  where code = 'GBPUSD' and interval_min = 1  order by time
-select * from market_price mp  where code = 'ZG' and interval_min = 1  order by time desc
+select count(1) from market_price mp  where code = 'CADUSD' and interval_min = 60  and "time" > '2020-12-01 00:00:00'  and  "time" < '2021-01-01 00:00:00'  order by time asc
+select * from market_price mp  where code = 'GBPUSD' and interval_min = 60  and "time" > '2019-12-01 00:00:00'  and  "time" < '2020-01-01 00:00:00' order by time asc
 
-select * from market_price mp  where code = 'EURUSD' and interval_min = 1440  order by time
-select * from market_price mp  where code = 'NZDUSD' and interval_min = 1  order by time
-select * from market_price mp  where code = 'NZDUSD' and interval_min = 1440  order by time
-select * from market_price mp  where code = 'JPYUSD' and interval_min = 1440  order by time
-select * from market_price mp  where code = 'USDJPY' and interval_min = 1440  order by time
-select * from market_price mp  where code = 'CHFUSD' and interval_min = 1440  order by time
-select * from market_price mp  where code = 'CHFUSD' and interval_min = 1440  order by time desc
-select * from market_price mp  where code = 'ZG' and interval_min = 1440  order by time
-select * from market_price mp  where code = 'ZG' and interval_min = 1440  order by time desc
+select * from market_price mp  where code = 'CADUSD' and interval_min = 60  and "time" > '2020-12-01 00:00:00'  and  "time" < '2021-01-01 00:00:00'  order by time asc
 
-select * from market_price mp  where code = 'CHFUSD' and interval_min = 1  order by time desc
-select * from market_price mp  where code = 'ETH' and interval_min = 1  order by time desc
-select * from market_price mp  where code = 'BTC' and interval_min = 1  order by time
-
-
-select * from market_price mp where id = 1514844060 and code = 'NZDUSD' 
-delete from market_price mp where id = 1514844060 and code = 'NZDUSD'
-select * from market_price mp  where code = 'AUDUSD' and interval_min = 1440  order by time asc
-select * from market_price mp  where code = 'NZDUSD' and interval_min = 1  order by time desc 
-select * from market_price mp  where code = 'JPYUSD' and interval_min = 1  order by time desc
-select * from market_price mp  where code = 'ZI' and interval_min = 1440  order by time
-select * from market_price mp  where code = 'ZI' and interval_min = 1440  order by time desc
-select * from market_price mp  where code = 'EURUSD' and interval_min = 1440  order by time 
-select * from market_price mp  where code = 'EURUSD' and interval_min = 1440  order by time 
-java 
-
-
-30 04:01 -> 2020-12-05 05:59:00
-select * from market_price mp  where code = 'CADUSD' and interval_min = 1 and "time" > '2020-11-30'  and  "time" < '2020-12-06' order by time
-select * from market_price mp  where code = 'CADUSD' and interval_min = 1 and id <= 1546029000 and high = 0 and low = 0 and "close" = 0 and "open" =0
-delete from market_price mp  where code = 'CADUSD' and interval_min = 1 and id <= 1546029000 and high = 0 and low = 0 and "close" = 0 and "open" =0
-
-select * from market_price mp  where code = 'T'  and interval_min = 1440 
-
-select * from market_price mp  where code = 'ZG' and interval_min = 1 order by time desc
-select * from market_price mp  where code = 'CADUSD' and interval_min = 1 order by time desc
-select * from market_price mp  where code = 'CADUSD' and interval_min = 1440 order by time
-select * from market_price mp  where code = 'AUDUSD' and interval_min = 1 order by time desc
-select * from market_price mp  where code = 'GBPUSD' and interval_min = 1 order by time desc
-select * from market_price mp  where code = 'GBPUSD' and interval_min = 1440 order by time 
-select * from market_price mp  where code = 'JPYUSD' and interval_min = 1  and id <= 1546029000 order by time\
-select * from market_price mp  where code = 'CHFUSD' and interval_min = 1  order by time
-select * from market_price mp  where code = 'CHFUSD' and interval_min = 1440 order by time
-select * from market_price mp  where code = 'CHFUSD' and interval_min = 1440 order by time
-select * from market_price mp  where code = 'CHFUSD' and interval_min = 1 order by time
-select * from market_price mp  where code = 'BTC' and interval_min = 1 order by time desc
-select * from market_price mp  where code = 'ETH' and interval_min = 1 order by time desc
-
-select * from market_price mp  where code = 'BTC' and interval_min = 1440 order by time desc
-select * from market_price mp  where code = 'ETH' and interval_min = 1440 order by time desc
-
-select * from market_price mp  where code = 'USDJPY' and interval_min = 1 order by time desc
-select * from market_price mp  where code = 'USDJPY' and interval_min = 1440 order by time desc
 
 curl -X PATCH http://127.0.01:8081/marketExecutor/fastDownload/USDJPY/from/2018-05-03/to/2021-01-06/with/ONE_MINUTE -H accept: application/json -o USDJPY.log
 
@@ -79,7 +116,14 @@ curl -X PATCH http://127.0.01:8081/marketExecutor/fastDownload/USDJPY/from/2018-
 select * from market_price mp  where code = 'CHFUSD' and interval_min = 1440  and time >= '1989-01-01' and time <='1989-12-31'
 select * from market_price mp  where code = 'ZG' and interval_min = 1440  and time >= '2015-01-01' and time <='2015-12-31'
 select * from market_price mp  where code = 'CHFUSD' and interval_min = 1440 order by time desc
+select * from market_price mp  where code = 'XAGUSD' and interval_min = 1440 order by time desc
+select * from market_price mp  where code = 'XAGUSD' and interval_min = 1440 order by time desc
+select * from market_price mp  where code = 'PL' and interval_min = 1440 order by time desc
 select * from market_price mp  where code = 'CHFUSD' and interval_min = 1 order by time desc
+
+select * from market_price_dxy_daily order by time desc
+
+select * from 
 
 select * from simulation s
 select * from financial_detail fd 
@@ -87,7 +131,10 @@ truncate financial_detail
 select * from financial_detail
 select count(1) from financial_detail fd
 select * from market_price mp  where code = 'CADUSD' and interval_min = 1 and "time" > '2019-01-03'  and  "time" < '2019-01-04' order by time
-select * from market_price mp  where code = 'CADUSD' and interval_min = 1440 order by time 
+select * from market_price mp  where code = 'GBPUSD' and interval_min = 60 order by time desc 
+select * from market_price mp  where code = 'CADUSD' and interval_min = 60 order by time desc
+select * from market_price mp  where code = 'CADUSD' and interval_min = 1 order by time desc
+select * from market_price mp  where code = 'GBPUSD' and id = 1614373200
 
 select * from macd_cache where id = 631843200
 select * from macd_cache where code = 'CADUSD' and slow = 12 and fast = 26 and resolution = 'ONE_MINUTE' and smoothing =2 and ema_period = 27 order by time
@@ -95,34 +142,17 @@ delete from macd_cache where code = 'CADUSD' and slow = 12 and fast = 26 and res
 select * from macd_cache where code = 'CADUSD' and slow = 12 and fast = 26 and resolution = 'DAY' and smoothing =2 and ema_period = 27 order by time
 delete from macd_cache where code = 'CADUSD' and slow = 12 and fast = 26 and resolution = 'DAY' and smoothing =2 and ema_period = 27 order by time
 
-drop table macd_cache
-CREATE TABLE public.macd_cache (
-	start_time timestamptz not NULL,
-	code varchar(20) NOT NULL,
-	slow numeric(20,10) not NULL,
-	fast numeric(20,10) not NULL,
-	resolution varchar(20) NOT NULL,
-	smoothing numeric(20,10) not NULL,
-	ema_period numeric(20,10) not NULL,
-	id numeric(30,10) not NULL,
-	"time" timestamptz not NULL,
-	short_ema numeric(30,10) NULL,
-	long_ema numeric(30,10) NULL,
-	diff numeric(30,10) NULL,
-	dem numeric(30,10) NULL,
-	CONSTRAINT macd_cache_pkey PRIMARY KEY (start_time, code, slow, fast, resolution, smoothing,ema_period,id )
-);
-CREATE INDEX macd_cache_idx_1 ON public.macd_cache USING btree (code);
-CREATE INDEX macd_cache_idx_2 ON public.macd_cache USING btree (start_time, code, slow, fast, resolution, smoothing,ema_period, "time");
-CREATE INDEX macd_cache_idx_3 ON public.macd_cache USING btree (start_time, code, slow, fast, resolution, smoothing,ema_period);
-
 select count(1) from macd_cache
 
-
+GBPUSD	2021-02-01 00:00:00	2021-02-28 00:00:00	5.0000000000	10.0000000000	ONE_HOUR	2.0000000000	5.0000000000	IF_PREVIOUS_DIFF_GO_OPPOSITE	-0.0233000000	NORMAL	MONTH
 --truncate table macd_simulation_result
 
 select * from macd_simulation_result where fast = 26 and resolution = 'DAY' and smoothing = 2 and ema_period = 9 order by profit_and_loss 
 select * from macd_simulation_result where code = 'CHFUSD' order by profit_and_loss desc
+
+select * from macd_simulation_result where code = 'GBPUSD' and start = '2021-02-01 00:00:00' and "end" = '2021-02-28 00:00:00' and "period" = 'MONTH'
+
+select * from macd_simulation_result where start = '1994-01-01' and code = 'CADUSD' and resolution = 'DAY' and opening_strategy = 'WAIT_MACD_POINT_1' 
 
 select (code, resolution, slow ,fast ,smoothing ,ema_period, closing_strategy) as parameter, profit_and_loss , start from macd_simulation_result where start = '2019-01-01'
 select (code, resolution, slow ,fast ,smoothing ,ema_period, closing_strategy) as parameter, profit_and_loss , start from macd_simulation_result where code = 'CADUSD' and start = '2019-01-01' order by profit_and_loss  desc
@@ -134,7 +164,10 @@ select (code, resolution, slow ,fast ,smoothing ,ema_period, closing_strategy) a
 where   (code, resolution, slow ,fast ,smoothing ,ema_period, closing_strategy) = b.parameter
 order by start desc 
 
+select * from market_price mp  where code = 'CADUSD' and interval_min = 1440 and id = 1608422400
+update market_price mp set code = 'CADUSD_TMP' where code = 'CADUSD' and interval_min = 1440 and id = 1608422400
 
+MarketPrice=[MarketPrice(id=1577750400, intervalMin=1440, code=CADUSD, high=0.7723, low=0.7651, close=0.7700, open=0.7652, time=2019-12-31T08:00)] currentMACD=[MovingAverageConvergenceDivergencePoint(id=1577750400, time=2019-12-31T08:00, shortEMA=0.7654, longEMA=0.7597, diff=0.0057, dem=0.0004)] macdStatus=[diff=0.0057 dem=0.0004 status=ABOVE] closingStrategy=[ORIGINAL]
 
 select a.* from macd_simulation_result a,
 (
@@ -150,12 +183,20 @@ limit 1
 and a."start" >= '2010-01-01'
 order by "start" desc
 
+CADUSD	2020-01-01 00:00:00	2020-12-31 00:00:00	5.0000000000	30.0000000000	DAY	2.0000000000	30.0000000000	ORIGINAL	0.0744000000
+CADUSD	2019-01-01 00:00:00	2019-12-31 00:00:00	5.0000000000	30.0000000000	DAY	2.0000000000	30.0000000000	ORIGINAL	0.0235000000
 
+
+
+
+losing_strategy varchar(50) NOT NULL,
 select  * from macd_simulation_result where 
 code = 'AUDUSD' and 
 "end" = '2019-12-31' and
 resolution = 'DAY' 
 order by pl desc
+
+[2021-01-23 00:03:32] [http-nio-8091-exec-3] [INFO ] m.domain.MacdExecutionServiceImpl - [MACD] MarketPrice=[MarketPrice(id=1548288000, intervalMin=1440, code=CADUSD, high=0.7503, low=0.7476, close=0.7491, open=0.7496, time=2019-01-24T08:00)] currentMACD=[MovingAverageConvergenceDivergencePoint(id=1548288000, time=2019-01-24T08:00, shortEMA=0.7504, longEMA=0.7817, diff=-0.0313, dem=-0.0316)] macdStatus=[diff=-0.0313 dem=-0.0316 status=ABOVE] closingStrategy=[ORIGINAL]
 
 
 
@@ -166,6 +207,19 @@ start >= '2018-01-01' and
 resolution = 'DAY' 
 --group by slow ,fast ,smoothing ,ema_period, closing_strategy
 order by pl desc
+
+select * from macd_simulation_result  where 
+select * from macd_simulation_result where code = 'GBPUSD' and resolution  = 'DAY' order by profit_and_loss desc
+select * from macd_simulation_result where code = 'NZDUSD' and resolution  = 'ONE_HOUR' order by profit_and_loss desc
+ 
+select (slow ,fast ,smoothing ,ema_period, closing_strategy) as parameter, profit_and_loss as pl from macd_simulation_result 
+select (slow ,fast ,smoothing ,ema_period, closing_strategy) as parameter, profit_and_loss as pl from macd_simulation_result where resolution  = 'ONE_MINUTE'
+
+select (slow ,fast ,smoothing ,ema_period, closing_strategy, opening_strategy) as parameter, avg(profit_and_loss) as pl from macd_simulation_result where 
+resolution  = 'ONE_MINUTE' and 
+code = 'CADUSD'
+group by (slow ,fast ,smoothing ,ema_period, closing_strategy, opening_strategy) 
+order by avg(profit_and_loss) desc
 
 select (slow ,fast ,smoothing ,ema_period, closing_strategy) as parameter, profit_and_loss as pl from macd_simulation_result where 
 code = 'ZG' and 
@@ -229,155 +283,392 @@ select a.* from macd_simulation_result a,
 ) b 
 where 
 	(a.code, a.resolution, a.slow ,a.fast ,a.smoothing ,a.ema_period, a.closing_strategy) = b.parameter and
-	b.rownum = 7
+	b.rownum = 1
 order by 
 	a.start desc
 	
-	
 
-
-select (code, resolution, slow ,fast ,smoothing ,ema_period, closing_strategy) as parameter, sum(profit_and_loss), avg(profit_and_loss)  from macd_simulation_result where 
+select *  from macd_simulation_result where  code = 'GBPUSD' and resolution = 'ONE_HOUR' order by start desc
+select count(1) from macd_simulation_result where  code = 'CADUSD' and resolution = 'ONE_HOUR'
+select count(1) from macd_simulation_result where  code = 'GBPUSD' and resolution = 'ONE_HOUR'
+select count(1) from macd_simulation_result where  code = 'NZDUSD' and resolution = 'ONE_HOUR'
+select * from macd_simulation_result where  code = 'EURUSD' and resolution = 'ONE_HOUR' and profit_and_loss = 0
+48+10
+1121472
+1121472
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- ONE HOUR CAD
+58
+select distinct start from macd_simulation_result  where  code = 'CADUSD' and  resolution = 'ONE_HOUR' and "period" = 'MONTH' order by start
+select distinct start from macd_simulation_result  where  code = 'CADUSD' and  resolution = 'ONE_HOUR' and "period" = 'MONTH' order by start  
+select (code, resolution, slow ,fast ,smoothing ,ema_period, closing_strategy, opening_strategy, period) as parameter, sum(profit_and_loss), avg(profit_and_loss),count(1)   from macd_simulation_result where 
 code = 'CADUSD' and 
-start >= '2011-01-01' and 
+start >= '2016-03-01' and 
+--"end" <= '2020-12-31' and
+ resolution = 'ONE_HOUR' and
 profit_and_loss > 0
-group by (code, resolution, slow ,fast ,smoothing ,ema_period, closing_strategy) having count(1) = 10 order by sum(profit_and_loss) desc  
+group by (code, resolution, slow ,fast ,smoothing ,ema_period, closing_strategy, opening_strategy, period) having count(1) >= 30 order by sum(profit_and_loss) desc  
 
+(CADUSD,ONE_HOUR,40.0000000000,55.0000000000,2.0000000000,40.0000000000,ORIGINAL)
 
-//20 yrs lost 1 CADUSD
-select * from macd_simulation_result where
-(code, resolution, slow ,fast ,smoothing ,ema_period, closing_strategy) = ('CADUSD','DAY',30.0000000000,40.0000000000,2.0000000000,40.0000000000,'WITH_SHORT_RANGE_20')
+select a.* from macd_simulation_result a, 
+(
+	select row_number() OVER () rownum, (code, resolution, slow ,fast ,smoothing ,ema_period, closing_strategy) as parameter, avg(profit_and_loss) from macd_simulation_result where 
+	code = 'CADUSD' and 
+	start >= '2011-01-01' and 
+	profit_and_loss > 0
+	group by (code, resolution, slow ,fast ,smoothing ,ema_period, closing_strategy) having count(1) = 10
+) b 
+where 
+	(a.code, a.resolution, a.slow ,a.fast ,a.smoothing ,a.ema_period, a.closing_strategy) = b.parameter and
+	b.rownum = 1
+order by 
+	a.start desc
 
-select * from macd_simulation_result where
-(code, resolution, slow ,fast ,smoothing ,ema_period, closing_strategy) = ('CADUSD','DAY',35.0000000000,40.0000000000,2.0000000000,40.0000000000,'WITH_SHORT_RANGE_30')
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- ONE HOUR EUR
+58
+select distinct start from macd_simulation_result  where  code = 'EURUSD' and  resolution = 'ONE_HOUR' and "period" = 'MONTH' order by start
+select distinct start from macd_simulation_result  where  code = 'EURUSD' and  resolution = 'ONE_HOUR' and "period" = 'MONTH' order by start  
+select (code, resolution, slow ,fast ,smoothing ,ema_period, closing_strategy, opening_strategy, period) as parameter, sum(profit_and_loss), avg(profit_and_loss),count(1)   from macd_simulation_result where 
+code = 'EURUSD' and 
+start >= '2016-03-01' and 
+--"end" <= '2020-12-31' and
+ resolution = 'ONE_HOUR' and
+profit_and_loss > 0
+group by (code, resolution, slow ,fast ,smoothing ,ema_period, closing_strategy, opening_strategy, period) having count(1) >= 30 order by sum(profit_and_loss) desc  
 
+(CADUSD,ONE_HOUR,40.0000000000,55.0000000000,2.0000000000,40.0000000000,ORIGINAL)
+
+select a.* from macd_simulation_result a, 
+(
+	select row_number() OVER () rownum, (code, resolution, slow ,fast ,smoothing ,ema_period, closing_strategy) as parameter, avg(profit_and_loss) from macd_simulation_result where 
+	code = 'CADUSD' and 
+	start >= '2011-01-01' and 
+	profit_and_loss > 0
+	group by (code, resolution, slow ,fast ,smoothing ,ema_period, closing_strategy) having count(1) = 10
+) b 
+where 
+	(a.code, a.resolution, a.slow ,a.fast ,a.smoothing ,a.ema_period, a.closing_strategy) = b.parameter and
+	b.rownum = 1
+order by 
+	a.start desc
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- ONE HOUR GBP
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- ONE HOUR GBP
   
-(code, resolution, slow ,fast ,smoothing ,ema_period, closing_strategy) = ('CADUSD','DAY',5.0000000000,10.0000000000,2.0000000000,5.0000000000,'ORIGINAL')
+EXPLAIN ANALYZE VERBOSE
+
+----------------
+select distinct code from macd_simulation_result 
+select * from macd_simulation_result where code = 'CC' order by start desc limit 2
+select '(''' || a.code || ''',''' || a.resolution || ''',' || a.slow  || ',' || a.fast  || ',' ||a.smoothing  || ',' || a.ema_period  || ',''' || a.closing_strategy || ''',''' ||  a.opening_strategy || ''',''' ||  a.period  || ''')' as parameter, max(a.profit_and_loss), min(a.profit_and_loss), sum(a.profit_and_loss),avg(a.profit_and_loss),  
+ (select count(1) from macd_simulation_result b where b.profit_and_loss > 0 and (a.code, a.resolution, a.slow ,a.fast ,a.smoothing ,a.ema_period, a.closing_strategy, a.opening_strategy, a.period) =  (b.code, b.resolution, b.slow ,b.fast ,b.smoothing ,b.ema_period, b.closing_strategy, b.opening_strategy, b.period))
+from macd_simulation_result a where  
+a.code = 'HG' and 
+a.start >= '2016-03-01' and
+ a.resolution = 'ONE_HOUR'
+group by (a.code, a.resolution, a.slow ,a.fast ,a.smoothing ,a.ema_period, a.closing_strategy, a.opening_strategy, a.period) order by sum(a.profit_and_loss) desc
+
+select '(''' || a.code || ''',''' || a.resolution || ''',' || a.slow  || ',' || a.fast  || ',' ||a.smoothing  || ',' || a.ema_period  || ',''' || a.closing_strategy || ''',''' ||  a.opening_strategy || ''',''' ||  a.period  || ''')' as parameter, max(a.profit_and_loss), min(a.profit_and_loss), sum(a.profit_and_loss),avg(a.profit_and_loss),  
+ (select count(1) from macd_simulation_result b where b.profit_and_loss > 0 and (a.code, a.resolution, a.slow ,a.fast ,a.smoothing ,a.ema_period, a.closing_strategy, a.opening_strategy, a.period) =  (b.code, b.resolution, b.slow ,b.fast ,b.smoothing ,b.ema_period, b.closing_strategy, b.opening_strategy, b.period))
+from macd_simulation_result a where  
+a.code = 'HG' and 
+a.start >= '2016-03-01' and
+ a.resolution = 'ONE_HOUR'
+group by (a.code, a.resolution, a.slow ,a.fast ,a.smoothing ,a.ema_period, a.closing_strategy, a.opening_strategy, a.period) order by sum(a.profit_and_loss) desc
 
 
 
-select (code, resolution, slow ,fast ,smoothing ,ema_period, closing_strategy) as parameter, start, "end", profit_and_loss as pl from macd_simulation_result where 
-code = 'CADUSD' and 
-start = '2019-01-01' and 
-resolution = 'DAY' 
---group by slow ,fast ,smoothing ,ema_period, closing_strategy
-order by pl desc
-limit 1
-) b where  (code, resolution, slow ,fast ,smoothing ,ema_period, closing_strategy) = b.parameter
-and start = '2020-01-01' 
+select distinct "start", "end" from macd_simulation_result where
+code = 'ZS' and 
+start >= '2016-03-01' and
+ resolution = 'ONE_HOUR'
 
-select a.* from macd_simulation_result a,
-(
-select (code, resolution, slow ,fast ,smoothing ,ema_period, closing_strategy) as parameter, profit_and_loss as pl from macd_simulation_result where 
-code = 'AUDUSD' and 
-start = '2019-01-01' and 
-resolution = 'DAY' 
---group by slow ,fast ,smoothing ,ema_period, closing_strategy
-order by pl desc
-limit 1
-) b where  (code, resolution, slow ,fast ,smoothing ,ema_period, closing_strategy) = b.parameter
-and start = '2020-01-01' 
-union 
-select a.* from macd_simulation_result a,
-(
-select (code, resolution, slow ,fast ,smoothing ,ema_period, closing_strategy) as parameter, profit_and_loss as pl from macd_simulation_result where 
-code = 'AUDUSD' and 
-(start = '2018-01-01' )and 
-resolution = 'DAY' 
---group by slow ,fast ,smoothing ,ema_period, closing_strategy
-order by pl desc
-limit 1
-) b where  (code, resolution, slow ,fast ,smoothing ,ema_period, closing_strategy) = b.parameter
-and start = '2019-01-01' 
-union 
-select a.* from macd_simulation_result a,
-(
-select (code, resolution, slow ,fast ,smoothing ,ema_period, closing_strategy) as parameter, profit_and_loss as pl from macd_simulation_result where 
-code = 'AUDUSD' and 
-(start >= '2013-01-01' and start <= '2017-01-01'  )and 
-resolution = 'DAY' 
---group by slow ,fast ,smoothing ,ema_period, closing_strategy
-order by pl desc
-limit 1
-) b where  (code, resolution, slow ,fast ,smoothing ,ema_period, closing_strategy) = b.parameter
-and start = '2018-01-01' 
+select start, "end", profit_and_loss 
+from macd_simulation_result where (code, resolution, slow ,fast ,smoothing ,ema_period, closing_strategy, opening_strategy, period) = 
+('HG','ONE_HOUR',55.0000000000,60.0000000000,2.0000000000,15.0000000000,'WITH_SHORT_RANGE_10','NORMAL','MONTH')
+--and profit_and_loss > 0
+order by start
+
+select *
+from macd_simulation_result where (code, resolution, slow ,fast ,smoothing ,ema_period, closing_strategy, opening_strategy, period) = 
+('HG','ONE_HOUR',55.0000000000,60.0000000000,2.0000000000,15.0000000000,'WITH_SHORT_RANGE_10','NORMAL','MONTH') 
+--and profit_and_loss > 0
+order by start
+
+select *
+from macd_simulation_result where (code, resolution, slow ,fast ,smoothing ,ema_period, closing_strategy, opening_strategy, period) = 
+('EURUSD','ONE_HOUR',25.0000000000,30.0000000000,2.0000000000,25.0000000000,'WITH_SHORT_RANGE_10','WAIT_MACD_POINT_2','MONTH')
+--and profit_and_loss > 0
+order by start
+
+delete from macd_simulation_result where start >= '2021-05-30 00:00:00'
 
 
-select * from macd_simulation_result where start = '2011-01-01' and code = 'NZDUSD'
+select * from expected_execution_macd
 
-select * from macd_simulation_result a,
-(
-select (code, resolution, slow ,fast ,smoothing ,ema_period, closing_strategy) as g from macd_simulation_result where 
-code = 'ZG' and 
-start >= '2018-01-01' and
-"end" <= '2019-12-31' and
-resolution = 'DAY' 
-group by code, resolution, slow ,fast ,smoothing ,ema_period, closing_strategy
-order by avg(profit_and_loss)  desc
-limit 1
- ) b 
-where (code, resolution, slow ,fast ,smoothing ,ema_period, closing_strategy) = b.g
+--delete
+--from macd_simulation_result where (code, resolution, slow ,fast ,smoothing ,ema_period, closing_strategy, opening_strategy, period) = 
+--('EURUSD','ONE_HOUR',25.0000000000,30.0000000000,2.0000000000,25.0000000000,'WITH_SHORT_RANGE_10','WAIT_MACD_POINT_2','MONTH')
+--and start = '2021-02-01 00:00:00' and "end" = '2021-02-28 00:00:00'  
+
+select * from market_price_eurusd_hourly mpeh order by time desc
+
+select count(distinct "start" )
+from macd_simulation_result where
+code = 'EURUSD' and 
+start >= '2016-03-01' and
+ resolution = 'ONE_HOUR'
+
+select * from market_price mp  where code = 'ZG' and interval_min = 60  order by time
+
+select * from macd_simulation_result limit 2
+select (code, resolution, slow ,fast ,smoothing ,ema_period, closing_strategy, opening_strategy, period) as parameter, start, "end", profit_and_loss 
+from macd_simulation_result where (code, resolution, slow ,fast ,smoothing ,ema_period, closing_strategy, opening_strategy, period) = 
+('EURUSD','ONE_HOUR',25.0000000000,30.0000000000,2.0000000000,25.0000000000,'WITH_SHORT_RANGE_10','WAIT_MACD_POINT_2','MONTH')
+order by start 
+
+
+select * from macd_simulation_result limit 2
+select (code, resolution, slow ,fast ,smoothing ,ema_period, closing_strategy, opening_strategy, period) as parameter, start, "end", profit_and_loss 
+from macd_simulation_result where (code, resolution, slow ,fast ,smoothing ,ema_period, closing_strategy, opening_strategy, period) = 
+('CADUSD','ONE_HOUR',55.0000000000,60.0000000000,2.0000000000,30.0000000000,'WITH_SHORT_RANGE_60','WAIT_MACD_POINT_1','MONTH')
+order by start 
+
+select (code, resolution, slow ,fast ,smoothing ,ema_period, closing_strategy, opening_strategy, period) as parameter, start, "end", profit_and_loss 
+from macd_simulation_result where (code, resolution, slow ,fast ,smoothing ,ema_period, closing_strategy, opening_strategy, period) = 
+('GBPUSD','ONE_HOUR',15.0000000000,55.0000000000,2.0000000000,35.0000000000,'WITH_SHORT_RANGE_10','WAIT_MACD_POINT_2','MONTH')
+order by start 
+
+SHOW max_connections;
+
+SELECT client_addr, count(1) FROM pg_stat_activity group by client_addr 
+
+select * from vendor_market_price where code = 'CT' limit 2
+
+select * from market_price_cadusd_every_minute mpcefm order by time desc
+select * from market_price_oj_daily
+CREATE TABLE public.market_price_oj_hourly (
+	id bigserial NOT NULL,
+	high numeric(20,10) NULL,
+	low numeric(20,10) NULL,
+	"close" numeric(20,10) NULL,
+	"open" numeric(20,10) NULL,
+	"time" timestamptz NULL,
+	CONSTRAINT market_price_oj_hourly_pkey PRIMARY KEY (id)
+);
+CREATE INDEX market_price_oj_hourly_1 ON public.market_price_oj_hourly USING btree ("time");
+
+CREATE TABLE public.market_price_oj_daily (
+	id bigserial NOT NULL,
+	high numeric(20,10) NULL,
+	low numeric(20,10) NULL,
+	"close" numeric(20,10) NULL,
+	"open" numeric(20,10) NULL,
+	"time" timestamptz NULL,
+	CONSTRAINT market_price_oj_daily_pkey PRIMARY KEY (id)
+);
+CREATE INDEX market_price_oj_daily_1 ON public.market_price_oj_daily USING btree ("time");
+
+CREATE TABLE public.market_price_oj_every_minute (
+	id bigserial NOT NULL,
+	high numeric(20,10) NULL,
+	low numeric(20,10) NULL,
+	"close" numeric(20,10) NULL,
+	"open" numeric(20,10) NULL,
+	"time" timestamptz NULL,
+	CONSTRAINT market_price_oj_every_minute_pkey PRIMARY KEY (id)
+);
+CREATE INDEX market_price_oj_every_minute_1 ON public.market_price_oj_every_minute USING btree ("time");
+
+CREATE TABLE public.market_price_oj_every_five_minute (
+	id bigserial NOT NULL,
+	high numeric(20,10) NULL,
+	low numeric(20,10) NULL,
+	"close" numeric(20,10) NULL,
+	"open" numeric(20,10) NULL,
+	"time" timestamptz NULL,
+	CONSTRAINT market_price_oj_every_minute_five_pkey PRIMARY KEY (id)
+);
+CREATE INDEX market_price_oj_every_five_minute_1 ON public.market_price_oj_every_five_minute USING btree ("time");
+
+
+
+truncate market_price_cadusd_every_minute
+
+select * from market_price_jpyusd_hourly order by time desc
+
+select * from market_price_jpyusd_every_minute order by time desc
+
+
+
+select * from expected_execution_macd
+
+select eem.direction , eem.price as expected_price, case when eem.direction ='LONG' then eem.price*-1 else eem.price end as expected_amend_price, date_trunc('hour', eem.time),
+ aoem.direction , aoem.price as actual_price, case when aoem.direction ='LONG' then aoem.price*-1 else aoem.price end as actual_amend_price, abs(eem.price-aoem.price)
+from expected_execution_macd eem 
+left join actual_order_execution_macd aoem on aoem.direction  = eem.direction and date_trunc('hour', eem.time)  = date_trunc('hour', aoem.time) and eem.symbol = aoem.symbol 
+where eem.symbol = 'EURUSD' and  eem.time >= '2021-05-09' and eem.time <= '2021-05-15'
+
+select sum(case when eem.direction ='LONG' then eem.price*-1 else eem.price end ) as expected_amend_price ,
+ sum(case when aoem.direction ='LONG' then aoem.price*-1 else aoem.price end) as actual_amend_price, sum(abs(eem.price-aoem.price))
+from expected_execution_macd eem 
+left join actual_order_execution_macd aoem on aoem.direction  = eem.direction and date_trunc('hour', eem.time)  = date_trunc('hour', aoem.time) and eem.symbol = aoem.symbol 
+where eem.symbol = 'EURUSD'
+
+
+
+select sum(case when direction ='LONG' then price*-1 else price end ) from expected_execution_macd eem where symbol = 'EURUSD'
+select sum(case when direction ='LONG' then price*-1 else price end ) from actual_order_execution_macd aoem where symbol = 'EURUSD'
+select direction , price,  if direction = 'LONG' then 1 else 2 end if as a from expected_execution_macd eem where symbol = 'EURUSD'
+
+
+select direction , price, case when direction ='LONG' then price*-1 else price end as a from actual_order_execution_macd eem where symbol = 'EURUSD'
+
+select * from market_price_cadusd_every_minute mpcem order by time desc
+select * from market_price_zg_daily order by time desc
+select * from market_price_cadusd_hourly where id = 1617998400 or id = 1617994800
+select * from market_price_eth_hourly order by time desc
+select * from market_price_btc_hourly order by time
+
+select * from market_price_cadusd_every_minute order by time desc
+
+
+
+CREATE TABLE public.market_price_eurusd_hourly (
+	id bigserial NOT NULL,
+	high numeric(20,10) NULL,
+	low numeric(20,10) NULL,
+	"close" numeric(20,10) NULL,
+	"open" numeric(20,10) NULL,
+	"time" timestamptz NULL,
+	CONSTRAINT market_price_eurusd_hourly_pkey PRIMARY KEY (id)
+);
+CREATE INDEX market_price_eurusd_hourly_1 ON public.market_price_eurusd_hourly USING btree ("time");
+
+CREATE TABLE public.market_price_eurusd_daily (
+	id bigserial NOT NULL,
+	high numeric(20,10) NULL,
+	low numeric(20,10) NULL,
+	"close" numeric(20,10) NULL,
+	"open" numeric(20,10) NULL,
+	"time" timestamptz NULL,
+	CONSTRAINT market_price_eurusd_daily_pkey PRIMARY KEY (id)
+);
+CREATE INDEX market_price_eurusd_daily_1 ON public.market_price_eurusd_daily USING btree ("time");
+
+CREATE TABLE public.market_price_eurusd_every_minute (
+	id bigserial NOT NULL,
+	high numeric(20,10) NULL,
+	low numeric(20,10) NULL,
+	"close" numeric(20,10) NULL,
+	"open" numeric(20,10) NULL,
+	"time" timestamptz NULL,
+	CONSTRAINT market_price_eurusd_every_minute_pkey PRIMARY KEY (id)
+);
+CREATE INDEX market_price_eurusd_every_minute_1 ON public.market_price_eurusd_every_minute USING btree ("time");
+
+CREATE TABLE public.market_price_eurusd_every_five_minute (
+	id bigserial NOT NULL,
+	high numeric(20,10) NULL,
+	low numeric(20,10) NULL,
+	"close" numeric(20,10) NULL,
+	"open" numeric(20,10) NULL,
+	"time" timestamptz NULL,
+	CONSTRAINT market_price_eurusd_every_minute_five_pkey PRIMARY KEY (id)
+);
+CREATE INDEX market_price_eurusd_every_five_minute_1 ON public.market_price_eurusd_every_five_minute USING btree ("time");
+
+select * from market_price_eurusd_hourly mpeh where id = 1620252000
+
+select * from macd_simulation_result where code = 'EURUSD' limit 2
+select * from macd_simulation_result where code = 'EURUSD' 
+and slow = 25 and fast = 30 and ema_period = 25 and closing_strategy  = 'WITH_SHORT_RANGE_10'  and opening_strategy = 'WAIT_MACD_POINT_2' 
+and resolution = 'ONE_HOUR' and "period" = 'MONTH' and "start" = '2021-04-01' order by start desc
+select * from expected_execution_macd where symbol = 'EURUSD' and "time" between '2021-05-01' and '2021-05-08' order by "time" 
+
+
+and slow = 25 and fast = 30 and ema_period = 25 and closing_strategy  = 'WITH_SHORT_RANGE_10'  and opening_strategy = 'WAIT_MACD_POINT_2' 
+and resolution = 'ONE_HOUR' and "period" = 'MONTH'
+and "start" >= '2021-04-01'
 order by start desc
 
+select * from macd_simulation_result where code = 'EURUSD' 
+and slow = 25 and fast = 30 and ema_period = 25 and closing_strategy  = 'WITH_SHORT_RANGE_10'  and opening_strategy = 'WAIT_MACD_POINT_2' 
+and resolution = 'ONE_HOUR' and "period" = 'MONTH' and "start" >= '2021-04-01'
+order by start desc
 
-select (code, slow ,fast ,smoothing ,ema_period, closing_strategy) as parameter  from macd_simulation_result where 
-code = 'AUDUSD' and 
-start >= '2015-01-01' and
-"end" <= '2020-12-31' and
-resolution = 'DAY' 
-group by code, slow ,fast ,smoothing ,ema_period, closing_strategy
-order by avg(profit_and_loss)  desc
-limit 1
+select distinct "start" from macd_simulation_result where code = 'DXY' and  resolution = 'ONE_HOUR'
+"start" >= '2021-04-01'
 
-
-select (slow ,fast ,smoothing ,ema_period, closing_strategy) as parameter, avg(profit_and_loss) as pl from macd_simulation_result where 
-code = 'AUDUSD' and 
-start >= '2015-01-01' and
-"end" <= '2020-12-31' and
-resolution = 'DAY' 
-group by slow ,fast ,smoothing ,ema_period, closing_strategy
-order by pl desc
-
-
-15.0000000000	20.0000000000	2.0000000000	5.0000000000	WITH_SHORT_RANGE_20	0.45458000000000000000
-
-select * from macd_simulation_result where 
-code = 'CADUSD' and 
-slow = 5 and 
-fast = 20 and 
-smoothing =2 and 
-ema_period = 10 and
-closing_strategy = 'WITH_SHORT_RANGE_30' and 
-start >= '2010-01-01'
-
-select * from macd_simulation_result where 
-code = 'CADUSD' and 
-slow = 15 and 
-fast = 20 and 
-smoothing =2 and 
-ema_period = 5 and
-closing_strategy = 'WITH_SHORT_RANGE_20' and 
-start = '2018-01-01'
-
-
-select * from macd_simulation_result where 
-code = 'CADUSD' and 
-start = '2018-01-01'
-
---truncate table macd_simulation_result
-drop table macd_simulation_result
-CREATE TABLE public.macd_simulation_result (
-    code  varchar(20) NULL,
-    "start" timestamptz NULL,
-    "end" timestamptz NULL,
-    slow numeric(20,10) NULL,
-    fast numeric(20,10) NULL,
-    resolution varchar(20) NULL,
-    smoothing numeric(20,10) NULL,
-    ema_period numeric(20,10) NULL,
-    closing_strategy varchar(20) NULL,
-    profit_and_loss numeric(20,10) null,
-    CONSTRAINT macd_simulation_result_pkey PRIMARY KEY (code, "start", "end", slow, fast, resolution,smoothing,ema_period,closing_strategy )
-)
+select "start", count(1) from macd_simulation_result where code = 'EURUSD' and  resolution = 'ONE_HOUR' group by "start" 
 
 
 
+
+--delete from macd_simulation_result where code = 'EURUSD' and  "start" >= '2021-04-01'
+and slow = 25 and fast = 30 and ema_period = 25 and closing_strategy  = 'WITH_SHORT_RANGE_10'  and opening_strategy = 'WAIT_MACD_POINT_2' 
+and resolution = 'ONE_HOUR' and "period" = 'MONTH' and "start" >= '2021-04-01'
+order by start desc
+
+--delete from macd_simulation_result where code = 'EURUSD' and slow = 25 and fast = 30 and ema_period = 25 and closing_strategy  = 'WITH_SHORT_RANGE_10'  and opening_strategy = 'WAIT_MACD_POINT_2' 
+and resolution = 'ONE_HOUR' and "period" = 'MONTH' and "start" = '2020-04-25'
+
+
+
+select * from market_price_eurusd_hourly order by time desc
+select * from market_price_gbpusd_hourly order by time desc
+
+select * from macd_simulation_result where code = 'EURUSD' 
+and slow = 25 and fast = 30 and ema_period = 25 and closing_strategy  = 'WITH_SHORT_RANGE_10'  and opening_strategy = 'WAIT_MACD_POINT_2' 
+and resolution = 'ONE_HOUR' and "period" = 'MONTH' and "start" = '2021-04-06' order by start desc
+
+select * from expected_execution_macd eem where time >= '2021-08-01' and time <= '2021-08-08' and symbol = 'GBPUSD' 
+select * from expected_execution_macd eem  where time >= '2021-07-18' and time <= '2021-07-25' and symbol = 'GBPUSD'
+select * from actual_order_execution_macd eem where time >= '2021-07-18' and time <= '2021-07-25' and symbol = 'EURUSD'
+select * from expected_execution_macd eem where time >= '2021-05-30' and time <= '2021-06-06' and symbol = 'EURUSD'
+select * from actual_order_execution_macd aoem where time >= '2021-05-16' and time <= '2021-05-23' and symbol = 'EURUSD'
+
+select * from expected_execution_macd eem where time >= '2021-07-11' and time <= '2021-07-18' and symbol = 'GBPUSD'
+select * from actual_order_execution_macd aoem where time >= '2021-07-11' and time <= '2021-07-18' and symbol = 'EURUSD'
+
+select * from expected_execution_macd eem where time >= '2021-05-30' and time <= '2021-06-06' and symbol = 'EURUSD'
+
+delete from macd_simulation_result where start >= '2021-07-01'
+select * from macd_simulation_result where start >= '2021-07-01'
+
+ 
+ select direction , price, case when direction ='LONG' then price*-1 else price end as a from actual_order_execution_macd eem where symbol = 'EURUSD'
+ select time, direction , price, case when direction ='LONG' then price*-1 else price end as a from actual_order_execution_macd eem where symbol = 'EURUSD' and time between  '2021-05-01' and  '2021-06-01'  order by time
+ 
+ select date_trunc('month',time), sum(case when direction ='LONG' then price*-1 else price end ) from actual_order_execution_macd eem where symbol = 'EURUSD' 
+ and time between  '2021-04-01' and  '2021-06-01'  
+ group by date_trunc('month',time)
+ order by date_trunc('month',time)
+ 
+ select date_trunc('month',time), sum(case when direction ='LONG' then price*-1 else price end ) from expected_execution_macd  where symbol = 'EURUSD' 
+ and time between  '2021-04-01' and  '2021-06-01'  
+ group by date_trunc('month',time)
+ order by date_trunc('month',time)
+ 
+ select * from actual_order_execution_macd
+ 
+ 
+ 
+ SELECT last_value FROM actual_order_execution_macd_id_seq;
+ SELECT currval('actual_order_execution_macd_id_seq') + 1;
+
+
+ select nextval('actual_order_execution_macd_id_seq') 
+ 
+ select * from market_price_ct_daily
+ 
+ 
+ select * 
