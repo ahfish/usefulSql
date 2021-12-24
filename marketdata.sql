@@ -308,6 +308,11 @@ a.start >= '2016-03-01' and
 group by (a.code, a.resolution, a.slow ,a.fast ,a.smoothing ,a.ema_period, a.closing_strategy, a.opening_strategy, a.period) order by sum(a.profit_and_loss) desc
 
 #######################################################################################
+select * from market_price_eurusd_daily order by time desc
+select * from market_price_eurusd_every_minute mpeem order by time desc
+select * from market_price_eurusd_hourly mpeem order by time desc
+
+
 select '(''EURUSD'',''' || a.resolution || ''',' || a.slow  || ',' || a.fast  || ',' ||a.smoothing  || ',' || a.ema_period  || ',''' || a.closing_strategy || ''',''' ||  a.opening_strategy || ''',''' ||  a.period  || ''')' as parameter, max(a.profit_and_loss), min(a.profit_and_loss), sum(a.profit_and_loss),avg(a.profit_and_loss),  
  (select count(1) from macd_simulation_result_eurusd b where b.profit_and_loss > 0 and (a.resolution, a.slow ,a.fast ,a.smoothing ,a.ema_period, a.closing_strategy, a.opening_strategy, a.period) =  (b.resolution, b.slow ,b.fast ,b.smoothing ,b.ema_period, b.closing_strategy, b.opening_strategy, b.period))
 from macd_simulation_result_eurusd a where  
@@ -347,6 +352,100 @@ from macd_simulation_result_gbpusd where (resolution, slow ,fast ,smoothing ,ema
 select ('EURUSD',resolution, slow ,fast ,smoothing ,ema_period, closing_strategy, opening_strategy, period) as parameter, "start" at time zone 'Asia/Hong_Kong', "end" at time zone 'Asia/Hong_Kong', profit_and_loss 
 from macd_simulation_result_gbpusd where (resolution, slow ,fast ,smoothing ,ema_period, closing_strategy, opening_strategy, period) = 
 ('ONE_HOUR',25.0000000000,30.0000000000,2.0000000000,25.0000000000,'WITH_SHORT_RANGE_10','WAIT_MACD_POINT_2','MONTH')
+order by start 
+
+
+#######################################################################################
+#######################################################################################
+select '(''AUDUSD'',''' || a.resolution || ''',' || a.slow  || ',' || a.fast  || ',' ||a.smoothing  || ',' || a.ema_period  || ',''' || a.closing_strategy || ''',''' ||  a.opening_strategy || ''',''' ||  a.period  || ''')' as parameter, max(a.profit_and_loss), min(a.profit_and_loss), sum(a.profit_and_loss),avg(a.profit_and_loss),  
+ (select count(1) from macd_simulation_result_audusd b where b.profit_and_loss > 0 and (a.resolution, a.slow ,a.fast ,a.smoothing ,a.ema_period, a.closing_strategy, a.opening_strategy, a.period) =  (b.resolution, b.slow ,b.fast ,b.smoothing ,b.ema_period, b.closing_strategy, b.opening_strategy, b.period))
+from macd_simulation_result_audusd a where  
+a.start >= '2016-03-01' and
+ a.resolution = 'ONE_HOUR'
+group by (a.resolution, a.slow ,a.fast ,a.smoothing ,a.ema_period, a.closing_strategy, a.opening_strategy, a.period) order by sum(a.profit_and_loss) desc
+
+-- select count()
+select count(1)
+from macd_simulation_result_audusd where (resolution, slow ,fast ,smoothing ,ema_period, closing_strategy, opening_strategy, period) = 
+('ONE_HOUR',55.0000000000,60.0000000000,2.0000000000,15.0000000000,'WITH_SHORT_RANGE_10','NORMAL','MONTH') 
+
+
+-- profit_and_loss result
+select ('AUDUSD',resolution, slow ,fast ,smoothing ,ema_period, closing_strategy, opening_strategy, period) as parameter, "start" at time zone 'Asia/Hong_Kong', "end" at time zone 'Asia/Hong_Kong', profit_and_loss 
+from macd_simulation_result_audusd where (resolution, slow ,fast ,smoothing ,ema_period, closing_strategy, opening_strategy, period) = 
+('ONE_HOUR',25.0000000000,30.0000000000,2.0000000000,25.0000000000,'WITH_SHORT_RANGE_10','WAIT_MACD_POINT_2','MONTH')
+order by start 
+
+
+#######################################################################################
+#######################################################################################
+select '(''CADUSD'',''' || a.resolution || ''',' || a.slow  || ',' || a.fast  || ',' ||a.smoothing  || ',' || a.ema_period  || ',''' || a.closing_strategy || ''',''' ||  a.opening_strategy || ''',''' ||  a.period  || ''')' as parameter, max(a.profit_and_loss), min(a.profit_and_loss), sum(a.profit_and_loss),avg(a.profit_and_loss),  
+ (select count(1) from macd_simulation_result_cadusd b where b.profit_and_loss > 0 and (a.resolution, a.slow ,a.fast ,a.smoothing ,a.ema_period, a.closing_strategy, a.opening_strategy, a.period) =  (b.resolution, b.slow ,b.fast ,b.smoothing ,b.ema_period, b.closing_strategy, b.opening_strategy, b.period))
+from macd_simulation_result_cadusd a where  
+a.start >= '2016-03-01' and
+ a.resolution = 'ONE_HOUR'
+group by (a.resolution, a.slow ,a.fast ,a.smoothing ,a.ema_period, a.closing_strategy, a.opening_strategy, a.period) order by sum(a.profit_and_loss) desc
+
+-- select count()
+select count(1)
+from macd_simulation_result_cadusd where (resolution, slow ,fast ,smoothing ,ema_period, closing_strategy, opening_strategy, period) = 
+('ONE_HOUR',55.0000000000,60.0000000000,2.0000000000,15.0000000000,'WITH_SHORT_RANGE_10','NORMAL','MONTH') 
+
+
+-- profit_and_loss result
+select ('AUDUSD',resolution, slow ,fast ,smoothing ,ema_period, closing_strategy, opening_strategy, period) as parameter, "start" at time zone 'Asia/Hong_Kong', "end" at time zone 'Asia/Hong_Kong', profit_and_loss 
+from macd_simulation_result_cadusd where (resolution, slow ,fast ,smoothing ,ema_period, closing_strategy, opening_strategy, period) = 
+('ONE_HOUR',25.0000000000,30.0000000000,2.0000000000,25.0000000000,'WITH_SHORT_RANGE_10','WAIT_MACD_POINT_2','MONTH')
+order by start 
+
+
+#######################################################################################
+#######################################################################################
+select * from market_price_btc_daily order by time desc
+select * from market_price_btc_every_minute mpeem order by time desc
+select * from market_price_btc_hourly mpeem order by time asc
+select '(''BTC'',''' || a.resolution || ''',' || a.slow  || ',' || a.fast  || ',' ||a.smoothing  || ',' || a.ema_period  || ',''' || a.closing_strategy || ''',''' ||  a.opening_strategy || ''',''' ||  a.period  || ''')' as parameter, max(a.profit_and_loss), min(a.profit_and_loss), sum(a.profit_and_loss),avg(a.profit_and_loss),  
+ (select count(1) from macd_simulation_result_btc b where b.profit_and_loss > 0 and (a.resolution, a.slow ,a.fast ,a.smoothing ,a.ema_period, a.closing_strategy, a.opening_strategy, a.period) =  (b.resolution, b.slow ,b.fast ,b.smoothing ,b.ema_period, b.closing_strategy, b.opening_strategy, b.period))
+from macd_simulation_result_btc a where  
+a.start >= '2016-03-01' and
+ a.resolution = 'ONE_HOUR'
+group by (a.resolution, a.slow ,a.fast ,a.smoothing ,a.ema_period, a.closing_strategy, a.opening_strategy, a.period) order by sum(a.profit_and_loss) desc
+
+-- select count()
+select count(1)
+from macd_simulation_result_btc where (resolution, slow ,fast ,smoothing ,ema_period, closing_strategy, opening_strategy, period) = 
+('ONE_HOUR',10.0000000000,15.0000000000,2.0000000000,15.0000000000,'ORIGINAL','NORMAL','MONTH') 
+
+
+-- profit_and_loss result
+select ('BTC',resolution, slow ,fast ,smoothing ,ema_period, closing_strategy, opening_strategy, period) as parameter, "start" at time zone 'Asia/Hong_Kong', "end" at time zone 'Asia/Hong_Kong', profit_and_loss 
+from macd_simulation_result_btc where (resolution, slow ,fast ,smoothing ,ema_period, closing_strategy, opening_strategy, period) = 
+('ONE_HOUR',20.0000000000,35.0000000000,2.0000000000,20.0000000000,'WITH_SHORT_RANGE_10','WAIT_MACD_POINT_2','MONTH')
+order by start 
+
+
+#######################################################################################
+#######################################################################################
+select * from market_price_eth_daily order by time desc
+select * from market_price_eth_every_minute mpeem order by time desc
+select * from market_price_eth_hourly mpeem order by time asc
+select '(''ETH'',''' || a.resolution || ''',' || a.slow  || ',' || a.fast  || ',' ||a.smoothing  || ',' || a.ema_period  || ',''' || a.closing_strategy || ''',''' ||  a.opening_strategy || ''',''' ||  a.period  || ''')' as parameter, max(a.profit_and_loss), min(a.profit_and_loss), sum(a.profit_and_loss),avg(a.profit_and_loss),  
+ (select count(1) from macd_simulation_result_eth b where b.profit_and_loss > 0 and (a.resolution, a.slow ,a.fast ,a.smoothing ,a.ema_period, a.closing_strategy, a.opening_strategy, a.period) =  (b.resolution, b.slow ,b.fast ,b.smoothing ,b.ema_period, b.closing_strategy, b.opening_strategy, b.period))
+from macd_simulation_result_eth a where  
+a.start >= '2016-03-01' and
+ a.resolution = 'ONE_HOUR'
+group by (a.resolution, a.slow ,a.fast ,a.smoothing ,a.ema_period, a.closing_strategy, a.opening_strategy, a.period) order by sum(a.profit_and_loss) desc
+
+-- select count()
+select count(1)
+from macd_simulation_result_eth where (resolution, slow ,fast ,smoothing ,ema_period, closing_strategy, opening_strategy, period) = 
+('ONE_HOUR',10.0000000000,15.0000000000,2.0000000000,15.0000000000,'ORIGINAL','NORMAL','MONTH') 
+
+
+-- profit_and_loss result
+select ('ETH',resolution, slow ,fast ,smoothing ,ema_period, closing_strategy, opening_strategy, period) as parameter, "start" at time zone 'Asia/Hong_Kong', "end" at time zone 'Asia/Hong_Kong', profit_and_loss 
+from 0000000000 where (resolution, slow ,fast ,smoothing ,ema_period, closing_strategy, opening_strategy, period) = 
+('ONE_HOUR',20.0000000000,35.0000000000,2.0000000000,20.0000000000,'WITH_SHORT_RANGE_10','WAIT_MACD_POINT_2','MONTH')
 order by start 
 
 
