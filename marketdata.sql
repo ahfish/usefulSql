@@ -450,6 +450,31 @@ order by start
 
 
 #######################################################################################
+#######################################################################################
+select * from market_price_zg_daily order by time desc
+select * from market_price_zg_every_minute mpeem order by time desc
+select * from market_price_zg_hourly mpeem order by time asc
+select '(''ZG'',''' || a.resolution || ''',' || a.slow  || ',' || a.fast  || ',' ||a.smoothing  || ',' || a.ema_period  || ',''' || a.closing_strategy || ''',''' ||  a.opening_strategy || ''',''' ||  a.period  || ''')' as parameter, max(a.profit_and_loss), min(a.profit_and_loss), sum(a.profit_and_loss),avg(a.profit_and_loss),  
+ (select count(1) from macd_simulation_result_ b where b.profit_and_loss > 0 and (a.resolution, a.slow ,a.fast ,a.smoothing ,a.ema_period, a.closing_strategy, a.opening_strategy, a.period) =  (b.resolution, b.slow ,b.fast ,b.smoothing ,b.ema_period, b.closing_strategy, b.opening_strategy, b.period))
+from macd_simulation_result_eth a where  
+a.start >= '2016-03-01' and
+ a.resolution = 'ONE_HOUR'
+group by (a.resolution, a.slow ,a.fast ,a.smoothing ,a.ema_period, a.closing_strategy, a.opening_strategy, a.period) order by sum(a.profit_and_loss) desc
+
+-- select count()
+select count(1)
+from macd_simulation_result_eth where (resolution, slow ,fast ,smoothing ,ema_period, closing_strategy, opening_strategy, period) = 
+('ONE_HOUR',10.0000000000,15.0000000000,2.0000000000,15.0000000000,'ORIGINAL','NORMAL','MONTH') 
+
+
+-- profit_and_loss result
+select ('ETH',resolution, slow ,fast ,smoothing ,ema_period, closing_strategy, opening_strategy, period) as parameter, "start" at time zone 'Asia/Hong_Kong', "end" at time zone 'Asia/Hong_Kong', profit_and_loss 
+from 0000000000 where (resolution, slow ,fast ,smoothing ,ema_period, closing_strategy, opening_strategy, period) = 
+('ONE_HOUR',20.0000000000,35.0000000000,2.0000000000,20.0000000000,'WITH_SHORT_RANGE_10','WAIT_MACD_POINT_2','MONTH')
+order by start 
+
+
+#######################################################################################
 select '(''' || a.code || ''',''' || a.resolution || ''',' || a.slow  || ',' || a.fast  || ',' ||a.smoothing  || ',' || a.ema_period  || ',''' || a.closing_strategy || ''',''' ||  a.opening_strategy || ''',''' ||  a.period  || ''')' as parameter, max(a.profit_and_loss), min(a.profit_and_loss), sum(a.profit_and_loss),avg(a.profit_and_loss),  
  (select count(1) from macd_simulation_result b where b.profit_and_loss > 0 and (a.code, a.resolution, a.slow ,a.fast ,a.smoothing ,a.ema_period, a.closing_strategy, a.opening_strategy, a.period) =  (b.code, b.resolution, b.slow ,b.fast ,b.smoothing ,b.ema_period, b.closing_strategy, b.opening_strategy, b.period))
 from macd_simulation_result a where  
