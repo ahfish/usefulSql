@@ -444,8 +444,8 @@ from macd_simulation_result_eth where (resolution, slow ,fast ,smoothing ,ema_pe
 
 -- profit_and_loss result
 select ('ETH',resolution, slow ,fast ,smoothing ,ema_period, closing_strategy, opening_strategy, period) as parameter, "start" at time zone 'Asia/Hong_Kong', "end" at time zone 'Asia/Hong_Kong', profit_and_loss 
-from 0000000000 where (resolution, slow ,fast ,smoothing ,ema_period, closing_strategy, opening_strategy, period) = 
-('ONE_HOUR',20.0000000000,35.0000000000,2.0000000000,20.0000000000,'WITH_SHORT_RANGE_10','WAIT_MACD_POINT_2','MONTH')
+from macd_simulation_result_eth where (resolution, slow ,fast ,smoothing ,ema_period, closing_strategy, opening_strategy, period) = 
+('ONE_HOUR',45.0000000000,55.0000000000,2.0000000000,10.0000000000,'WITH_SHORT_RANGE_50','WAIT_MACD_POINT_1','MONTH')
 order by start 
 
 
