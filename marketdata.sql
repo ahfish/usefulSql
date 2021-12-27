@@ -428,7 +428,7 @@ order by start
 #######################################################################################
 select * from market_price_eth_daily order by time desc
 select * from market_price_eth_every_minute mpeem order by time desc
-select * from market_price_eth_hourly mpeem order by time asc
+select * from market_price_eth_hourly mpeem order by time desc
 select '(''ETH'',''' || a.resolution || ''',' || a.slow  || ',' || a.fast  || ',' ||a.smoothing  || ',' || a.ema_period  || ',''' || a.closing_strategy || ''',''' ||  a.opening_strategy || ''',''' ||  a.period  || ''')' as parameter, max(a.profit_and_loss), min(a.profit_and_loss), sum(a.profit_and_loss),avg(a.profit_and_loss),  
  (select count(1) from macd_simulation_result_eth b where b.profit_and_loss > 0 and (a.resolution, a.slow ,a.fast ,a.smoothing ,a.ema_period, a.closing_strategy, a.opening_strategy, a.period) =  (b.resolution, b.slow ,b.fast ,b.smoothing ,b.ema_period, b.closing_strategy, b.opening_strategy, b.period))
 from macd_simulation_result_eth a where  
@@ -961,4 +961,52 @@ insert into macd_simulation_result_ng (  "start" ,  "end" ,  slow ,  fast ,  res
 insert into macd_simulation_result_t (  "start" ,  "end" ,  slow ,  fast ,  resolution ,  smoothing ,  ema_period  ,  closing_strategy ,  profit_and_loss ,  opening_strategy ,  "period" )  select "start" ,  "end" ,  slow ,  fast ,  resolution ,  smoothing ,  ema_period  ,  closing_strategy ,  profit_and_loss ,  opening_strategy ,  "period" from dblink('dbname=marketPrice_20211212 user=ahfish password=pascal port=5432 host=127.0.0.1', 'SELECT "start" ,  "end" ,  slow ,  fast ,  resolution ,  smoothing ,  ema_period  ,  closing_strategy ,  profit_and_loss ,  opening_strategy ,  "period" FROM macd_simulation_result_intrim where code = ''T'' and start >= ''2021-08-01''') as n(  "start" timestamptz ,  "end" timestamptz ,  slow numeric(20, 10) ,  fast numeric(20, 10) ,  resolution varchar(20) ,  smoothing numeric(20, 10) ,  ema_period numeric(20, 10) , closing_strategy varchar(50) ,  profit_and_loss numeric(20, 10),  opening_strategy varchar(50) ,  "period" varchar(50) );
 insert into macd_simulation_result_audusd (  "start" ,  "end" ,  slow ,  fast ,  resolution ,  smoothing ,  ema_period  ,  closing_strategy ,  profit_and_loss ,  opening_strategy ,  "period" )  select "start" ,  "end" ,  slow ,  fast ,  resolution ,  smoothing ,  ema_period  ,  closing_strategy ,  profit_and_loss ,  opening_strategy ,  "period" from dblink('dbname=marketPrice_20211212 user=ahfish password=pascal port=5432 host=127.0.0.1', 'SELECT "start" ,  "end" ,  slow ,  fast ,  resolution ,  smoothing ,  ema_period  ,  closing_strategy ,  profit_and_loss ,  opening_strategy ,  "period" FROM macd_simulation_result_intrim where code = ''AUDUSD'' and start >= ''2021-08-01''') as n(  "start" timestamptz ,  "end" timestamptz ,  slow numeric(20, 10) ,  fast numeric(20, 10) ,  resolution varchar(20) ,  smoothing numeric(20, 10) ,  ema_period numeric(20, 10) , closing_strategy varchar(50) ,  profit_and_loss numeric(20, 10),  opening_strategy varchar(50) ,  "period" varchar(50) );
 insert into macd_simulation_result_ixic (  "start" ,  "end" ,  slow ,  fast ,  resolution ,  smoothing ,  ema_period  ,  closing_strategy ,  profit_and_loss ,  opening_strategy ,  "period" )  select "start" ,  "end" ,  slow ,  fast ,  resolution ,  smoothing ,  ema_period  ,  closing_strategy ,  profit_and_loss ,  opening_strategy ,  "period" from dblink('dbname=marketPrice_20211212 user=ahfish password=pascal port=5432 host=127.0.0.1', 'SELECT "start" ,  "end" ,  slow ,  fast ,  resolution ,  smoothing ,  ema_period  ,  closing_strategy ,  profit_and_loss ,  opening_strategy ,  "period" FROM macd_simulation_result_intrim where code = ''IXIC'' and start >= ''2021-08-01''') as n(  "start" timestamptz ,  "end" timestamptz ,  slow numeric(20, 10) ,  fast numeric(20, 10) ,  resolution varchar(20) ,  smoothing numeric(20, 10) ,  ema_period numeric(20, 10) , closing_strategy varchar(50) ,  profit_and_loss numeric(20, 10),  opening_strategy varchar(50) ,  "period" varchar(50) );
+
+
+
+
+select a.id, a.time, extract (epoch from (a.time - b.time))::integer/60/60 from market_price_eth_hourly a left join market_price_eth_hourly b on (a.id - 3600) = b.id order by a.time desc 
+
+insert into vendor_market_price(
+	provider,
+	id,
+	high,
+	low,
+	"close",
+	"open",
+	"time",
+	interval_min,
+	code
+)
+select 
+	n.provider,
+	n.id,
+	n.high,
+	n.low,
+	n."close",
+	n."open",
+	n."time",
+	n.interval_min,
+	n.code
+from vendor_market_price_tmp n
+left join vendor_market_price o on (o.provider, o.id, o.code, o.interval_min) = (n.provider, n.id, n.code, n.interval_min) 
+where o.provider is null and o.id  is null and  o.code  is null and  o.interval_min  is null
+
+select * from vendor_market_price vmp where time >= '2021-08-05' and  time <= '2021-08-07' and code = 'GBPUSD' and interval_min =1 order by time desc  
+
+
+
+CREATE TABLE public.vendor_market_price (
+	provider varchar(20) NOT NULL,
+	id bigserial NOT NULL,
+	high numeric(20, 10) NULL,
+	low numeric(20, 10) NULL,
+	"close" numeric(20, 10) NULL,
+	"open" numeric(20, 10) NULL,
+	"time" timestamptz NULL,
+	interval_min int4 NOT NULL,
+	code varchar(20) NOT NULL,
+	CONSTRAINT vendor_market_price_pkey PRIMARY KEY (provider, id, code, interval_min)
+);
+
 
