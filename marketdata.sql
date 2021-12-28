@@ -994,19 +994,48 @@ where o.provider is null and o.id  is null and  o.code  is null and  o.interval_
 
 select * from vendor_market_price vmp where time >= '2021-08-05' and  time <= '2021-08-07' and code = 'GBPUSD' and interval_min =1 order by time desc  
 
+CREATE TABLE public.vendor_market_price_fchi ( provider varchar(20) NOT NULL, id bigserial NOT NULL, high numeric(20, 10) NULL, low numeric(20, 10) NULL, "close" numeric(20, 10) NULL, "open" numeric(20, 10) NULL, "time" timestamptz NULL, interval_min int4 NOT NULL, CONSTRAINT vendor_market_price_pkey_fchi PRIMARY KEY (provider, id, interval_min) ); CREATE INDEX vendor_market_price_fchiidx_1 ON public.vendor_market_price USING btree ("time"); 
 
 
-CREATE TABLE public.vendor_market_price (
-	provider varchar(20) NOT NULL,
-	id bigserial NOT NULL,
-	high numeric(20, 10) NULL,
-	low numeric(20, 10) NULL,
-	"close" numeric(20, 10) NULL,
-	"open" numeric(20, 10) NULL,
-	"time" timestamptz NULL,
-	interval_min int4 NOT NULL,
-	code varchar(20) NOT NULL,
-	CONSTRAINT vendor_market_price_pkey PRIMARY KEY (provider, id, code, interval_min)
-);
 
 
+
+select distinct code from vendor_market_price
+
+
+insert into public.vendor_market_price_fchi( provider, id, high, low, "close", "open", "time", interval_min) select provider, id, high, low, "close", "open", "time", interval_min from vendor_market_price where code = 'FCHI';
+
+insert into public.vendor_market_price_axjo( provider, id, high, low, "close", "open", "time", interval_min) select provider, id, high, low, "close", "open", "time", interval_min from vendor_market_price where code = 'AXJO';
+insert into public.vendor_market_price_eurusd( provider, id, high, low, "close", "open", "time", interval_min) select provider, id, high, low, "close", "open", "time", interval_min from vendor_market_price where code = 'EURUSD';
+insert into public.vendor_market_price_hg( provider, id, high, low, "close", "open", "time", interval_min) select provider, id, high, low, "close", "open", "time", interval_min from vendor_market_price where code = 'HG';
+insert into public.vendor_market_price_eth( provider, id, high, low, "close", "open", "time", interval_min) select provider, id, high, low, "close", "open", "time", interval_min from vendor_market_price where code = 'ETH';
+insert into public.vendor_market_price_de30( provider, id, high, low, "close", "open", "time", interval_min) select provider, id, high, low, "close", "open", "time", interval_min from vendor_market_price where code = 'DE30';
+insert into public.vendor_market_price_zg( provider, id, high, low, "close", "open", "time", interval_min) select provider, id, high, low, "close", "open", "time", interval_min from vendor_market_price where code = 'ZG';
+insert into public.vendor_market_price_oj( provider, id, high, low, "close", "open", "time", interval_min) select provider, id, high, low, "close", "open", "time", interval_min from vendor_market_price where code = 'OJ';
+insert into public.vendor_market_price_gbpusd( provider, id, high, low, "close", "open", "time", interval_min) select provider, id, high, low, "close", "open", "time", interval_min from vendor_market_price where code = 'GBPUSD';
+insert into public.vendor_market_price_kc( provider, id, high, low, "close", "open", "time", interval_min) select provider, id, high, low, "close", "open", "time", interval_min from vendor_market_price where code = 'KC';
+insert into public.vendor_market_price_jp225( provider, id, high, low, "close", "open", "time", interval_min) select provider, id, high, low, "close", "open", "time", interval_min from vendor_market_price where code = 'JP225';
+insert into public.vendor_market_price_btc( provider, id, high, low, "close", "open", "time", interval_min) select provider, id, high, low, "close", "open", "time", interval_min from vendor_market_price where code = 'BTC';
+insert into public.vendor_market_price_us500( provider, id, high, low, "close", "open", "time", interval_min) select provider, id, high, low, "close", "open", "time", interval_min from vendor_market_price where code = 'US500';
+insert into public.vendor_market_price_uk100( provider, id, high, low, "close", "open", "time", interval_min) select provider, id, high, low, "close", "open", "time", interval_min from vendor_market_price where code = 'UK100';
+insert into public.vendor_market_price_dxy( provider, id, high, low, "close", "open", "time", interval_min) select provider, id, high, low, "close", "open", "time", interval_min from vendor_market_price where code = 'DXY';
+insert into public.vendor_market_price_zs( provider, id, high, low, "close", "open", "time", interval_min) select provider, id, high, low, "close", "open", "time", interval_min from vendor_market_price where code = 'ZS';
+insert into public.vendor_market_price_ct( provider, id, high, low, "close", "open", "time", interval_min) select provider, id, high, low, "close", "open", "time", interval_min from vendor_market_price where code = 'CT';
+insert into public.vendor_market_price_nzdusd( provider, id, high, low, "close", "open", "time", interval_min) select provider, id, high, low, "close", "open", "time", interval_min from vendor_market_price where code = 'NZDUSD';
+insert into public.vendor_market_price_xagusd( provider, id, high, low, "close", "open", "time", interval_min) select provider, id, high, low, "close", "open", "time", interval_min from vendor_market_price where code = 'XAGUSD';
+insert into public.vendor_market_price_pl( provider, id, high, low, "close", "open", "time", interval_min) select provider, id, high, low, "close", "open", "time", interval_min from vendor_market_price where code = 'PL';
+insert into public.vendor_market_price_chfusd( provider, id, high, low, "close", "open", "time", interval_min) select provider, id, high, low, "close", "open", "time", interval_min from vendor_market_price where code = 'CHFUSD';
+insert into public.vendor_market_price_zi( provider, id, high, low, "close", "open", "time", interval_min) select provider, id, high, low, "close", "open", "time", interval_min from vendor_market_price where code = 'ZI';
+insert into public.vendor_market_price_cc( provider, id, high, low, "close", "open", "time", interval_min) select provider, id, high, low, "close", "open", "time", interval_min from vendor_market_price where code = 'CC';
+insert into public.vendor_market_price_ng( provider, id, high, low, "close", "open", "time", interval_min) select provider, id, high, low, "close", "open", "time", interval_min from vendor_market_price where code = 'NG';
+insert into public.vendor_market_price_t( provider, id, high, low, "close", "open", "time", interval_min) select provider, id, high, low, "close", "open", "time", interval_min from vendor_market_price where code = 'T';
+insert into public.vendor_market_price_audusd( provider, id, high, low, "close", "open", "time", interval_min) select provider, id, high, low, "close", "open", "time", interval_min from vendor_market_price where code = 'AUDUSD';
+insert into public.vendor_market_price_jpyusd( provider, id, high, low, "close", "open", "time", interval_min) select provider, id, high, low, "close", "open", "time", interval_min from vendor_market_price where code = 'JPYUSD';
+insert into public.vendor_market_price_ixic( provider, id, high, low, "close", "open", "time", interval_min) select provider, id, high, low, "close", "open", "time", interval_min from vendor_market_price where code = 'IXIC';
+insert into public.vendor_market_price_sb( provider, id, high, low, "close", "open", "time", interval_min) select provider, id, high, low, "close", "open", "time", interval_min from vendor_market_price where code = 'SB';
+insert into public.vendor_market_price_hk50( provider, id, high, low, "close", "open", "time", interval_min) select provider, id, high, low, "close", "open", "time", interval_min from vendor_market_price where code = 'HK50';
+insert into public.vendor_market_price_cadusd( provider, id, high, low, "close", "open", "time", interval_min) select provider, id, high, low, "close", "open", "time", interval_min from vendor_market_price where code = 'CADUSD';
+
+select * from vendor_market_price_cadusd where interval_min =1 
+
+ 
