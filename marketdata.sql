@@ -1038,4 +1038,42 @@ insert into public.vendor_market_price_cadusd( provider, id, high, low, "close",
 
 select * from vendor_market_price_cadusd where interval_min =1 
 
- 
+select distinct code from market_price mp where code not in (
+select distinct upper(replace(replace(replace(replace(replace(table_name, 'market_price_', ''), '_hourly', ''), '_daily', ''), '_every_five_minute', ''), '_every_minute', '')) from information_schema.tables where table_name like 'market_price_%' and table_name not like '%view'
+)
+select distinct code from vendor_market_price
+select * from market_price where code = 'IXIC' order by time desc;
+select * from market_price_gbpusd_every_minute where time <= '2021-05-14' order by time desc
+select * from market_price_xagusd_every_minute order by time desc
+select * from market_price where code = 'IXIC' and code != 'HK02800';
+truncate table vendor_market_price
+
+
+select distinct upper(replace(replace(replace(replace(replace(table_name, 'vendor_market_price_', ''), '_hourly', ''), '_daily', ''), '_every_five_minute', ''), '_every_minute', '')) from information_schema.tables where table_name like 'vendor_market_price_%' and table_name not like '%view'
+truncate table vendor_market_price_tmp
+
+insert into market_price(
+	id,
+	high,
+	low,
+	"close",
+	"open",
+	"time",
+	interval_min,
+	code
+)
+select
+	n.id,
+	n.high,
+	n.low,
+	n."close",
+	n."open",
+	n."time",
+	n.interval_min,
+	n.code
+from market_price_tmp n left join market_price o on (n.id, n.code, n.interval_min) = (o.id, o.code, o.interval_min)
+where o.id is null and o.code is null and o.interval_min is null 
+
+select * from market_price where code = 'IXIC' order by time desc
+
+
