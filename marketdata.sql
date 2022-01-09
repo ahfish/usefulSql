@@ -998,9 +998,11 @@ CREATE TABLE public.vendor_market_price_fchi ( provider varchar(20) NOT NULL, id
 
 
 
-
-
-select distinct code from vendor_market_price_tmp
+select * from vendor_market_price_eth vmpe order by time desc
+select * from vendor_market_price_tmp where code = 'ZG' and interval_min  = 1 order by time desc 
+select * from vendor_market_price_tmp where code = 'ZG' and interval_min  = 1 and time <= '2022-01-02' order by time desc
+ 
+select distinct code from vendor_market_price_tmp order by code
 select * from vendor_market_price_tmp where interval_min =1 order by time desc
 select * from public.vendor_market_price_zi where time >= '2021-12-01' order by time desc
 select * from vendor_market_price_ng order by time desc
@@ -1041,7 +1043,7 @@ insert into public.vendor_market_price_cadusd( provider, id, high, low,  "close"
 
 select * from vendor_market_price_tmp where code = 'FCHI' order by time desc
 
-select * from vendor_market_price_cadusd where interval_min =1 
+select * from vendor_market_price_cadusd where interval_min =1 order by time desc 
 
 select distinct code from market_price mp where code not in (
 select distinct upper(replace(replace(replace(replace(replace(table_name, 'market_price_', ''), '_hourly', ''), '_daily', ''), '_every_five_minute', ''), '_every_minute', '')) from information_schema.tables where table_name like 'market_price_%' and table_name not like '%view'

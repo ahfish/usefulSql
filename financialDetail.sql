@@ -311,5 +311,5 @@ from financial_detail where exchangesymbol = 'IAA' and datatype = 'annual'
 select *
 from financial_detail where exchangesymbol = 'IAA' and datatype = 'quarterly'
 
-select distinct datatype
-from financial_detail where exchangesymbol = 'IAA'
+select *
+from financial_detail where exchangesymbol = 'YUMC' order by updatedon desc
