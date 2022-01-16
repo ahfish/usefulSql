@@ -735,12 +735,12 @@ select direction , price, case when direction ='LONG' then price*-1 else price e
 select * from market_price_cadusd_every_minute mpcem order by time desc
 select * from market_price_zg_daily order by time desc
 select * from market_price_cadusd_hourly where id = 1617998400 or id = 1617994800
-select * from market_price_eth_hourly order by time desc
+select * from market_price_xauusd_hourly order by time desc
+select * from market_price_xauusd_every_minute mpxem order by time desc
+select * from market_price_xauusd_daily mpxem order by time desc
 select * from market_price_btc_hourly order by time
 
 select * from market_price_cadusd_every_minute order by time desc
-
-
 
 CREATE TABLE public.market_price_eurusd_hourly (
 	id bigserial NOT NULL,
