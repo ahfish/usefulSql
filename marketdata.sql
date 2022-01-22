@@ -24,7 +24,8 @@ select * from market_price_oj_daily mpdd order by time desc
 select * from market_price mp where code = 'EURUSD' and interval_min = 60 and id = 1618531200
 
 
-select * from market_price_oj_hourly order by time desc
+select * from market_price_zg_hourly order by time 
+select * from market_price_zg_every_minute mpzem order by time
 select * from vendor_market_price_tmp limit 2
 --------------------------------------------------------
 select * from market_price_eurusd_hourly mpeh order by time desc
@@ -824,6 +825,7 @@ and resolution = 'ONE_HOUR' and "period" = 'MONTH' and "start" = '2020-04-25'
 
 
 select * from market_price_eurusd_hourly order by time desc
+select * from market_price_ng_every_minute mpeem order by time desc
 select * from market_price_gbpusd_hourly order by time desc
 
 select * from macd_simulation_result where code = 'EURUSD' 

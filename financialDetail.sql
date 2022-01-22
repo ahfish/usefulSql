@@ -306,7 +306,7 @@ order by 1,2'::text)
 
 
 
-
+INSERT INTO financial_detail (source,creationDate,updatedOn,exchangeSymbol,sourceUnderlyingType,sourceDataType,datatype,dataDateString,dataDate,key,value ) 
 SELECT 
     n.source,
     n.creationDate,
@@ -319,7 +319,7 @@ SELECT
     n.dataDate,
     n.key,
     n.value
-from financial_detail old left join financial_detail_tmp n 
+from financial_detail_tmp n left join financial_detail old 
 on  
 old.source = n.source and 
 old.exchangeSymbol = n.exchangeSymbol and 
@@ -328,5 +328,6 @@ old.sourceDataType = n.sourceDataType and
 old.datatype = n.datatype and 
 old.dataDateString = n.dataDateString and 
 old.key = n.key
-where n.value is null
-
+where old.value is null and old.source is null and old.exchangeSymbol is null and old.sourceUnderlyingType is null and old.sourceDataType is null and old.datatype is null
+and old.dataDateString is null
+and old.key is null
