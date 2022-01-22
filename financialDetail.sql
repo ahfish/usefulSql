@@ -303,13 +303,30 @@ select distinct exchangesymbol::TEXT,datadate,value
 from financial_detail 
 where sourcedatatype = ''cash_flow'' and key = ''CashFlowfromFinancingActivities'' and datatype = ''annual'' 
 order by 1,2'::text) 
---financial_detail(exchangesymbol text, "2015" numeric, "2016" numeric, "2017" numeric, "2018" numeric, "2019" numeric, "2020" numeric, "2021" numeric)
 
 
-select *
-from financial_detail where exchangesymbol = 'IAA' and datatype = 'annual'
-select *
-from financial_detail where exchangesymbol = 'IAA' and datatype = 'quarterly'
 
-select *
-from financial_detail where exchangesymbol = 'YUMC' order by updatedon desc
+
+SELECT 
+    n.source,
+    n.creationDate,
+    n.updatedOn,
+    n.exchangeSymbol, 
+    n.sourceUnderlyingType,
+    n.sourceDataType,
+    n.datatype,
+    n.dataDateString,
+    n.dataDate,
+    n.key,
+    n.value
+from financial_detail old left join financial_detail_tmp n 
+on  
+old.source = n.source and 
+old.exchangeSymbol = n.exchangeSymbol and 
+old.sourceUnderlyingType = n.sourceUnderlyingType and 
+old.sourceDataType = n.sourceDataType and 
+old.datatype = n.datatype and 
+old.dataDateString = n.dataDateString and 
+old.key = n.key
+where n.value is null
+
