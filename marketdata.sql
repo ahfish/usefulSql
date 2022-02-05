@@ -10,6 +10,7 @@ ALTER TABLE market_price add PRIMARY KEY
 select * from market_price limit 2
 select * from market_price where id = 1593615600
 
+
 select time from market_price mp  where code = 'IXIC' and interval_min = 1 order by "time" limit 1
 union
 select time from market_price mp  where code = 'IXIC' and interval_min = 60 order by "time" limit 1
@@ -149,7 +150,7 @@ GBPUSD	2021-02-01 00:00:00	2021-02-28 00:00:00	5.0000000000	10.0000000000	ONE_HO
 --truncate table macd_simulation_result
 
 select * from macd_simulation_result where fast = 26 and resolution = 'DAY' and smoothing = 2 and ema_period = 9 order by profit_and_loss 
-select * from macd_simulation_result where code = 'CHFUSD' order by profit_and_loss desc
+select * from macd_simulation_result where code = 'CHFUSD' order by start desc
 
 select * from macd_simulation_result where code = 'GBPUSD' and start = '2021-02-01 00:00:00' and "end" = '2021-02-28 00:00:00' and "period" = 'MONTH'
 
@@ -441,6 +442,10 @@ group by (a.resolution, a.slow ,a.fast ,a.smoothing ,a.ema_period, a.closing_str
 select count(1)
 from macd_simulation_result_eth where (resolution, slow ,fast ,smoothing ,ema_period, closing_strategy, opening_strategy, period) = 
 ('ONE_HOUR',10.0000000000,15.0000000000,2.0000000000,15.0000000000,'ORIGINAL','NORMAL','MONTH') 
+
+select *
+from macd_simulation_result_eth where (resolution, slow ,fast ,smoothing ,ema_period, closing_strategy, opening_strategy, period) = 
+('ONE_HOUR',10.0000000000,15.0000000000,2.0000000000,15.0000000000,'ORIGINAL','NORMAL','MONTH') order by start desc
 
 
 -- profit_and_loss result
