@@ -1018,6 +1018,8 @@ select * from public.vendor_market_price_zi where time >= '2021-12-01' order by 
 select * from vendor_market_price_ng order by time desc
 truncate table vendor_market_price_tmp
 
+select * from vendor_market_price_eurusd order by time desc
+
 insert into public.vendor_market_price_fchi( provider, id, high, low,  "close",  "open",  "time", interval_min) select n.provider, n.id, n.high, n.low, n."close", n."open", n."time", n.interval_min from vendor_market_price_tmp n left join public.vendor_market_price_fchi o on  n.provider = o.provider and n.id = o.id and o.interval_min  = n.interval_min where n.code = 'FCHI' and o.id is null and o.interval_min is null  ;
 insert into public.vendor_market_price_axjo( provider, id, high, low,  "close",  "open",  "time", interval_min) select n.provider, n.id, n.high, n.low, n."close", n."open", n."time", n.interval_min from vendor_market_price_tmp n left join public.vendor_market_price_axjo o on  n.provider = o.provider and n.id = o.id and o.interval_min  = n.interval_min where n.code = 'AXJO' and o.id is null and o.interval_min is null  ;
 insert into public.vendor_market_price_eurusd( provider, id, high, low,  "close",  "open",  "time", interval_min) select n.provider, n.id, n.high, n.low, n."close", n."open", n."time", n.interval_min from vendor_market_price_tmp n left join public.vendor_market_price_eurusd o on  n.provider = o.provider and n.id = o.id and o.interval_min  = n.interval_min where n.code = 'EURUSD' and o.id is null and o.interval_min is null  ;
@@ -1223,4 +1225,8 @@ select * from market_price_ixic_hourly order by time desc where time >= '2022-02
 select * from market_price_ixic_every_minute mpiem  order by time desc
 select * from market_price_ixic_daily order by time desc
 select * from market_price_ixic_daily where time
+
+
+
+SELECT  tablename FROM pg_catalog.pg_tables WHERE schemaname != 'pg_catalog' and schemaname != 'information_schema' and tablename like 'vendor_market_price_%'
 
