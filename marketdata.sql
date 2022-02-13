@@ -1157,8 +1157,68 @@ select n."start" ,  n."end" ,  n.slow ,  n.fast ,  n.resolution ,  n.smoothing ,
 
 truncate table macd_simulation_result_tmp
 select * from macd_simulation_result_tmp where code = 'SB' order by start desc
-select * from macd_simulation_result_sb order by start desc
+select * from market_price_eurusd_daily order by time desc
+
+select fi interval_min  from market_price order by time desc limit 20 
+select *  from market_price where interval_min = 43200
 
 
 
+
+CREATE TABLE public.market_price_ixic_daily (
+	id bigserial NOT NULL,
+	high numeric(20, 10) NULL,
+	low numeric(20, 10) NULL,
+	"close" numeric(20, 10) NULL,
+	"open" numeric(20, 10) NULL,
+	"time" timestamptz NULL,
+	CONSTRAINT market_price_ixic_daily_pkey PRIMARY KEY (id)
+);
+CREATE INDEX market_price_ixic_daily_1 ON public.market_price_ixic_daily USING btree ("time");
+
+
+CREATE TABLE public.market_price_ixic_every_five_minute (
+	id bigserial NOT NULL,
+	high numeric(20, 10) NULL,
+	low numeric(20, 10) NULL,
+	"close" numeric(20, 10) NULL,
+	"open" numeric(20, 10) NULL,
+	"time" timestamptz NULL,
+	CONSTRAINT market_price_ixic_every_minute_five_pkey PRIMARY KEY (id)
+);
+CREATE INDEX market_price_ixic_every_five_minute_1 ON public.market_price_ixic_every_five_minute USING btree ("time");
+
+
+CREATE TABLE public.market_price_ixic_every_minute (
+	id bigserial NOT NULL,
+	high numeric(20, 10) NULL,
+	low numeric(20, 10) NULL,
+	"close" numeric(20, 10) NULL,
+	"open" numeric(20, 10) NULL,
+	"time" timestamptz NULL,
+	CONSTRAINT market_price_ixic_every_minute_pkey PRIMARY KEY (id)
+);
+CREATE INDEX market_price_ixic_every_minute_1 ON public.market_price_ixic_every_minute USING btree ("time");
+
+CREATE TABLE public.market_price_ixic_hourly (
+	id bigserial NOT NULL,
+	high numeric(20, 10) NULL,
+	low numeric(20, 10) NULL,
+	"close" numeric(20, 10) NULL,
+	"open" numeric(20, 10) NULL,
+	"time" timestamptz NULL,
+	CONSTRAINT market_price_ixic_hourly_pkey PRIMARY KEY (id)
+);
+CREATE INDEX market_price_ixic_hourly_1 ON public.market_price_ixic_hourly USING btree ("time");
+
+insert into market_price_ixic_daily(id, high, low, "close", "open", "time") select id, high, low, "close", "open", "time"  from market_price where code = 'IXIC' and interval_min = 1440;
+insert into market_price_ixic_hourly(id, high, low, "close", "open", "time") select id, high, low, "close", "open", "time"  from market_price where code = 'IXIC' and interval_min = 60;
+insert into market_price_ixic_every_minute(id, high, low, "close", "open", "time") select id, high, low, "close", "open", "time" from market_price where code = 'IXIC' and interval_min = 1;
+
+
+select id, high, low, "close", "open", "time"  from market_price where code = 'IXIC' and interval_min = 1440 order by time desc 
+
+select * from market_price_ixic_daily where time >= '2022-02-04'
+select * from market_price_ixic_daily order by time desc
+select * from market_price_ixic_daily where time
 
