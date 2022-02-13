@@ -1218,7 +1218,9 @@ insert into market_price_ixic_every_minute(id, high, low, "close", "open", "time
 
 select id, high, low, "close", "open", "time"  from market_price where code = 'IXIC' and interval_min = 1440 order by time desc 
 
-select * from market_price_ixic_daily where time >= '2022-02-04'
+select * from market_price_ixic_hourly where time >= '2022-02-04'
+select * from market_price_ixic_hourly order by time desc where time >= '2022-02-04'
+select * from market_price_ixic_every_minute mpiem  order by time desc
 select * from market_price_ixic_daily order by time desc
 select * from market_price_ixic_daily where time
 
