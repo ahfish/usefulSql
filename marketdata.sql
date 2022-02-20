@@ -327,7 +327,7 @@ group by (a.resolution, a.slow ,a.fast ,a.smoothing ,a.ema_period, a.closing_str
 -- select count()
 select count(1)
 from macd_simulation_result_eurusd where (resolution, slow ,fast ,smoothing ,ema_period, closing_strategy, opening_strategy, period) = 
-('ONE_HOUR',55.0000000000,60.0000000000,2.0000000000,15.0000000000,'WITH_SHORT_RANGE_10','NORMAL','MONTH') 
+('ONE_HOUR',25.0000000000,30.0000000000,2.0000000000,25.0000000000,'WITH_SHORT_RANGE_10','WAIT_MACD_POINT_2','MONTH') 
 
 
 -- profit_and_loss result
@@ -353,9 +353,9 @@ from macd_simulation_result_gbpusd where (resolution, slow ,fast ,smoothing ,ema
 
 
 -- profit_and_loss result
-select ('EURUSD',resolution, slow ,fast ,smoothing ,ema_period, closing_strategy, opening_strategy, period) as parameter, "start" at time zone 'Asia/Hong_Kong', "end" at time zone 'Asia/Hong_Kong', profit_and_loss 
+select ('GBPUSD',resolution, slow ,fast ,smoothing ,ema_period, closing_strategy, opening_strategy, period) as parameter, "start" at time zone 'Asia/Hong_Kong', "end" at time zone 'Asia/Hong_Kong', profit_and_loss 
 from macd_simulation_result_gbpusd where (resolution, slow ,fast ,smoothing ,ema_period, closing_strategy, opening_strategy, period) = 
-('ONE_HOUR',25.0000000000,30.0000000000,2.0000000000,25.0000000000,'WITH_SHORT_RANGE_10','WAIT_MACD_POINT_2','MONTH')
+('ONE_HOUR',15.0000000000,55.0000000000,2.0000000000,35.0000000000,'WITH_SHORT_RANGE_10','WAIT_MACD_POINT_2','MONTH')
 order by start 
 
 
@@ -424,7 +424,7 @@ from macd_simulation_result_btc where (resolution, slow ,fast ,smoothing ,ema_pe
 -- profit_and_loss result
 select ('BTC',resolution, slow ,fast ,smoothing ,ema_period, closing_strategy, opening_strategy, period) as parameter, "start" at time zone 'Asia/Hong_Kong', "end" at time zone 'Asia/Hong_Kong', profit_and_loss 
 from macd_simulation_result_btc where (resolution, slow ,fast ,smoothing ,ema_period, closing_strategy, opening_strategy, period) = 
-('ONE_HOUR',20.0000000000,35.0000000000,2.0000000000,20.0000000000,'WITH_SHORT_RANGE_10','WAIT_MACD_POINT_2','MONTH')
+('ONE_HOUR',25.0000000000,35.0000000000,2.0000000000,15.0000000000,'WITH_SHORT_RANGE_40','WAIT_MACD_POINT_1','MONTH')
 order by start 
 
 
@@ -1221,10 +1221,14 @@ insert into market_price_ixic_every_minute(id, high, low, "close", "open", "time
 select id, high, low, "close", "open", "time"  from market_price where code = 'IXIC' and interval_min = 1440 order by time desc 
 
 select * from market_price_ixic_hourly where time >= '2022-02-04'
-select * from market_price_ixic_hourly order by time desc where time >= '2022-02-04'
+select * from market_price_ixic_hourly order by time desc 
+where time >= '2022-02-04'
+
 select * from market_price_ixic_every_minute mpiem  order by time desc
+select * from market_price_ixic_hourly mpiem  order by time desc
 select * from market_price_ixic_daily order by time desc
 select * from market_price_ixic_daily where time
+select * from market_price_ixic_daily  order by time desc
 
 
 
