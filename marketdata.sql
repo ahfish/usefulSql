@@ -1019,6 +1019,8 @@ select * from vendor_market_price_ng order by time desc
 truncate table vendor_market_price_tmp
 
 select * from vendor_market_price_eurusd order by time desc
+select * from public.vendor_market_price_zg order by time desc
+select * from public.vendor_market_price_tmp where code = 'XAGUSD' order by time desc
 
 insert into public.vendor_market_price_fchi( provider, id, high, low,  "close",  "open",  "time", interval_min) select n.provider, n.id, n.high, n.low, n."close", n."open", n."time", n.interval_min from vendor_market_price_tmp n left join public.vendor_market_price_fchi o on  n.provider = o.provider and n.id = o.id and o.interval_min  = n.interval_min where n.code = 'FCHI' and o.id is null and o.interval_min is null  ;
 insert into public.vendor_market_price_axjo( provider, id, high, low,  "close",  "open",  "time", interval_min) select n.provider, n.id, n.high, n.low, n."close", n."open", n."time", n.interval_min from vendor_market_price_tmp n left join public.vendor_market_price_axjo o on  n.provider = o.provider and n.id = o.id and o.interval_min  = n.interval_min where n.code = 'AXJO' and o.id is null and o.interval_min is null  ;
