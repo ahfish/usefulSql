@@ -1167,7 +1167,7 @@ select fi interval_min  from market_price order by time desc limit 20
 select *  from market_price where interval_min = 43200
 
 
-
+select * from market_price_ixic_daily order by time desc
 
 CREATE TABLE public.market_price_ixic_daily (
 	id bigserial NOT NULL,
