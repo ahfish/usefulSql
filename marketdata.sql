@@ -1229,10 +1229,18 @@ where time >= '2022-02-04'
 select * from market_price_ixic_every_minute mpiem  order by time desc
 select * from market_price_ixic_hourly mpiem  order by time desc
 select * from market_price_ixic_daily order by time desc
+select * from market_price_xauusd_daily order by time desc
+select * from market_price_zg_daily order by time desc
+select * from market_price_zg_every_minute mpzem  order by time desc
+select * from market_price_xauusd_hourly order by time desc
+select * from market_price_xauusd_every_minute mpxem order by time desc
 select * from market_price_ixic_daily where time
 select * from market_price_ixic_daily  order by time desc
+select * from market_price_xauusd_daily  order by time desc
 
+select * from market_price_xauusd_every_minute order by time desc 
 
 
 SELECT  tablename FROM pg_catalog.pg_tables WHERE schemaname != 'pg_catalog' and schemaname != 'information_schema' and tablename like 'vendor_market_price_%'
 
+select * from vendor_market_price_eth order by time desc
