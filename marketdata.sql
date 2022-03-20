@@ -1217,7 +1217,7 @@ CREATE INDEX market_price_ixic_hourly_1 ON public.market_price_ixic_hourly USING
 
 insert into market_price_ixic_daily(id, high, low, "close", "open", "time") select id, high, low, "close", "open", "time"  from market_price where code = 'IXIC' and interval_min = 1440;
 insert into market_price_ixic_hourly(id, high, low, "close", "open", "time") select id, high, low, "close", "open", "time"  from market_price where code = 'IXIC' and interval_min = 60;
-insert into market_price_ixic_every_minute(id, high, low, "close", "open", "time") select id, high, low, "close", "open", "time" from market_price where code = 'IXIC' and interval_min = 1;
+insert into market_price_ixic_every_minute(id, higendh, low, "close", "open", "time") select id, high, low, "close", "open", "time" from market_price where code = 'IXIC' and interval_min = 1;
 
 
 select id, high, low, "close", "open", "time"  from market_price where code = 'IXIC' and interval_min = 1440 order by time desc 
@@ -1244,3 +1244,5 @@ select * from market_price_xauusd_every_minute order by time desc
 SELECT  tablename FROM pg_catalog.pg_tables WHERE schemaname != 'pg_catalog' and schemaname != 'information_schema' and tablename like 'vendor_market_price_%'
 
 select * from vendor_market_price_eth order by time desc
+select * from vendor_market_price_zg order by time desc
+
