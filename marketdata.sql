@@ -1239,6 +1239,7 @@ select * from market_price_ixic_daily  order by time desc
 select * from market_price_xauusd_daily  order by time desc
 
 select * from market_price_xauusd_every_minute order by time desc 
+select * from market_price_xauusd_hourly where time >= '2018-05-09' order by time desc
 
 
 SELECT  tablename FROM pg_catalog.pg_tables WHERE schemaname != 'pg_catalog' and schemaname != 'information_schema' and tablename like 'vendor_market_price_%'
