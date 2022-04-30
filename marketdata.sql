@@ -1234,6 +1234,7 @@ select * from market_price_zg_daily order by time desc
 select * from market_price_zg_every_minute mpzem  order by time desc
 select * from market_price_xauusd_hourly order by time desc
 select * from market_price_xauusd_every_minute mpxem order by time desc
+select time  at time zone 'Asia/Hong_Kong'  from market_price_hk50_every_minute mphem  order by time desc
 select * from market_price_ixic_daily where time
 select * from market_price_ixic_daily  order by time desc
 select * from market_price_xauusd_daily  order by time desc
@@ -1245,5 +1246,6 @@ select * from market_price_xauusd_hourly where time >= '2018-05-09' order by tim
 SELECT  tablename FROM pg_catalog.pg_tables WHERE schemaname != 'pg_catalog' and schemaname != 'information_schema' and tablename like 'vendor_market_price_%'
 
 select * from vendor_market_price_eth order by time desc
+select time at time zone 'Asia/Hong_Kong' from vendor_market_price_hk50 where interval_min = 1 order by time desc 
 select * from vendor_market_price_zg order by time desc
 
