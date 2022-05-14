@@ -1232,6 +1232,8 @@ select * from market_price_ixic_daily order by time desc
 select * from market_price_xauusd_daily order by time desc
 select * from market_price_zg_daily order by time desc
 select * from market_price_zg_every_minute mpzem  order by time desc
+select * from market_price_cadusd_every_minute mpzem  order by time desc
+select * from market_price_zg_every_minute mpzem where time <= '2022-05-08' order by time desc
 select * from market_price_xauusd_hourly order by time desc
 select * from market_price_xauusd_every_minute mpxem order by time desc
 select time  at time zone 'Asia/Hong_Kong'  from market_price_hk50_every_minute mphem  order by time desc
