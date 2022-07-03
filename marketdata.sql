@@ -1250,5 +1250,5 @@ SELECT  tablename FROM pg_catalog.pg_tables WHERE schemaname != 'pg_catalog' and
 
 select * from vendor_market_price_eth order by time desc
 select time at time zone 'Asia/Hong_Kong' from vendor_market_price_hk50 where interval_min = 1 order by time desc 
-select * from vendor_market_price_zg order by time desc
+select * from vendor_market_price_zg where interval_min = 60 order by time desc
 
