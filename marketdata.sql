@@ -1376,3 +1376,9 @@ from
   (select count(*) used from pg_stat_activity) t1,
   (select setting::int res_for_super from pg_settings where name=$$superuser_reserved_connections$$) t2,
   (select setting::int max_conn from pg_settings where name=$$max_connections$$) t3
+  
+  
+  select * from ctrader_market_price_zg_every_minute order by time desc
+  select * from market_price_xauusd_every_minute order by time desc
+  
+  
