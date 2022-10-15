@@ -1381,4 +1381,10 @@ from
   select * from ctrader_market_price_zg_every_minute order by time desc
   select * from market_price_xauusd_every_minute order by time desc
   
+  SELECT table_name FROM information_schema.tables WHERE table_schema='public' and table_name like '%market_price%' 
+  SELECT 'truncate table ' || table_name || ';'  FROM information_schema.tables WHERE table_schema='public' and table_name like '%market_price%' and table_name not like '%market_price%view';
   
+  
+ select DATE_TRUNC('day', time), count(1) from ctrader_market_price_zg_every_minute group by DATE_TRUNC('day', time) order by DATE_TRUNC('day', time) desc
+ SELECT DATE_TRUNC('hour', TIMESTAMP '2017-03-17 02:09:30');
+ 
