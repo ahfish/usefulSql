@@ -1391,5 +1391,6 @@ from
  SELECT DATE_TRUNC('hour', TIMESTAMP '2017-03-17 02:09:30');
  
 
+select * from market_price_gbpjpy_every_fifteen_minute where time >= '2022-10-02 20:00:00' order by time 
 
 
