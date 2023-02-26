@@ -298,11 +298,14 @@ and ("2018"< "2019" )
 
 select * from macd_simulation_result order by profit_and_loss desc
 
+select * from "MorningStarUnderlyings" where "exchangeSymbol" = 'MMM'
 
+SELECT "id", "creationDate", "updatedOn", "exchangeName", "exchangeSymbol", "symbol", "underlyingType", "marketCapactiryType", "name", "financeUrl", "keyRatioUrl" FROM "MorningStarUnderlyings" AS "MorningStarUnderlying" WHERE "MorningStarUnderlying"."symbol" = 'MMM' LIMIT 1;
 select distinct exchangesymbol::TEXT,datadate,value
 from financial_detail 
 where sourcedatatype = ''cash_flow'' and key = ''CashFlowfromFinancingActivities'' and datatype = ''annual'' 
 order by 1,2'::text) 
+
 
 
 
@@ -331,3 +334,12 @@ old.key = n.key
 where old.value is null and old.source is null and old.exchangeSymbol is null and old.sourceUnderlyingType is null and old.sourceDataType is null and old.datatype is null
 and old.dataDateString is null
 and old.key is null
+
+
+
+
+select * from financial_detail where sourcedatatype  in ('operatingandefficiency', 'growth', 'operatingandefficiency', 'cashflow') order by creationdate desc
+select * from financial_detail where sourcedatatype  in ('operatingandefficiency', 'growth', 'operatingandefficiency', 'cashflow') and  creationdate <= '2023-01-01'
+
+
+ 
