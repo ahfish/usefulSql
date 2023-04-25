@@ -1396,3 +1396,5 @@ from
 select * from market_price_gbpjpy_every_fifteen_minute where time >= '2022-11-25 18:45:00' and time <= '2022-11-28 08:30:00'  order by time 
 
 
+select * from market_price_gbpjpy_every_fifteen_minute where time >= '2022-07-05 00:00:00' and time <= '2022-07-06 00:00:00'  order by time
+
