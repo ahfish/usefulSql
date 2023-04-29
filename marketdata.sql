@@ -1399,3 +1399,5 @@ select * from market_price_gbpjpy_every_fifteen_minute where time >= '2022-11-25
 select * from market_price_gbpjpy_every_fifteen_minute where time >= '2022-07-05 00:00:00' and time <= '2022-07-06 00:00:00'  order by time
 
 select DATE_TRUNC('day', time), count(1) from market_price_gbpjpy_every_fifteen_minute group by DATE_TRUNC('day', time) order by DATE_TRUNC('day', time) desc
+
+select * from market_price_gbpjpy_every_minute order by time desc
