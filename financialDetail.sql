@@ -300,6 +300,7 @@ select * from macd_simulation_result order by profit_and_loss desc
 
 select * from "MorningStarUnderlyings" where "exchangeSymbol" = 'MMM'
 
+
 SELECT "id", "creationDate", "updatedOn", "exchangeName", "exchangeSymbol", "symbol", "underlyingType", "marketCapactiryType", "name", "financeUrl", "keyRatioUrl" FROM "MorningStarUnderlyings" AS "MorningStarUnderlying" WHERE "MorningStarUnderlying"."symbol" = 'MMM' LIMIT 1;
 select distinct exchangesymbol::TEXT,datadate,value
 from financial_detail 
@@ -343,3 +344,14 @@ select * from financial_detail where sourcedatatype  in ('operatingandefficiency
 
 
  
+
+select * from financial_detail where exchangesymbol = 'AEP' and sourcedatatype = 'growth' order by updatedon desc
+select * from financial_detail where exchangesymbol = 'AEP' and sourcedatatype = 'operatingandefficiency' order by updatedon desc
+select * from financial_detail where exchangesymbol = 'AEP' and sourcedatatype = 'financialhealth' order by updatedon desc
+
+valuation
+growth
+financialHealth
+cashFlow
+
+
