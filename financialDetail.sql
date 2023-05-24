@@ -298,7 +298,7 @@ and ("2018"< "2019" )
 
 select * from macd_simulation_result order by profit_and_loss desc
 
-select * from "MorningStarUnderlyings" where "exchangeSymbol" = 'MMM'
+select * from "MorningStarUnderlyings" where "exchangeName" = 'xlon' where "exchangeSymbol" = 'MMM'
 
 
 SELECT "id", "creationDate", "updatedOn", "exchangeName", "exchangeSymbol", "symbol", "underlyingType", "marketCapactiryType", "name", "financeUrl", "keyRatioUrl" FROM "MorningStarUnderlyings" AS "MorningStarUnderlying" WHERE "MorningStarUnderlying"."symbol" = 'MMM' LIMIT 1;
