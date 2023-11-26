@@ -1399,7 +1399,7 @@ from
  
 select * from market_price_gbpjpy_every_minute order by time desc
 
-select * from market_price_gbpjpy_every_fifteen_minute where time >= '2022-11-25 18:45:00' and time <= '2022-11-28 08:30:00'  order by time 
+select *, high-low from market_price_gbpjpy_every_fifteen_minute where time >= '2022-10-11 19:15:00' and time <= '2022-10-11 20:15:00'  order by time 
 
 
 select * from market_price_gbpjpy_every_fifteen_minute where time >= '2022-07-05 00:00:00' and time <= '2022-07-06 00:00:00'  order by time
