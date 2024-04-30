@@ -1410,3 +1410,9 @@ select * from market_price_gbpjpy_every_fifteen_minute where time >= '2022-07-05
 select DATE_TRUNC('day', time), count(1) from market_price_gbpjpy_every_fifteen_minute group by DATE_TRUNC('day', time) order by DATE_TRUNC('day', time) desc
 
 select * from market_price_gbpjpy_every_minute order by time desc
+
+
+
+copy (SELECT * FROM financial_detail) to '/home/ahfish/Downloads/StarRocks-3.2.4/financial_detail.csv' with csv header
+
+select sum(value), exchangesymbol from financial_detail where value > 0 and datatype = 'annual' and sourceunderlyingtype = 'large-cap-growth-stocks' group by exchangesymbol 
