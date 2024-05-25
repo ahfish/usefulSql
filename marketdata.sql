@@ -1389,6 +1389,9 @@ from
  select DATE_TRUNC('day', time), count(1) from ctrader_market_price_gbpjpy_every_fifteen_minute cmpgefm group by DATE_TRUNC('day', time) order by DATE_TRUNC('day', time) desc
  select DATE_TRUNC('day', time), count(1) from ctrader_market_price_gbpjpy_every_minute cmpgefm group by DATE_TRUNC('day', time) order by DATE_TRUNC('day', time) desc
  select DATE_TRUNC('day', time), count(1) from ctrader_market_price_eth_every_minute cmpgefm group by DATE_TRUNC('day', time) order by DATE_TRUNC('day', time) desc
+ select DATE_TRUNC('day', time), count(1) from ctrader_market_price_xauchf_every_minute cmpgefm group by DATE_TRUNC('day', time) order by DATE_TRUNC('day', time) desc
+ select DATE_TRUNC('day', time), count(1) from ctrader_market_price_xauchf_every_fifteen_minute  cmpgefm group by DATE_TRUNC('day', time) order by DATE_TRUNC('day', time) desc
+ select DATE_TRUNC('day', time), count(1) from ctrader_market_price_xauchf_hourly  cmpgefm group by DATE_TRUNC('day', time) order by DATE_TRUNC('day', time) desc
  select DATE_TRUNC('day', time), count(1) from market_price_zg_every_minute group by DATE_TRUNC('day', time) order by DATE_TRUNC('day', time) desc
  select * from market_price_gbpjpy_every_minute 
  select DATE_TRUNC('day', time), count(1) from market_price_zg_every_five_minute group by DATE_TRUNC('day', time) order by DATE_TRUNC('day', time) desc
