@@ -361,3 +361,6 @@ cashFlow
 select * from financial_detail where exchangesymbol = '09988' and sourcedatatype = 'balance_sheet' order by updatedon desc
 select * from financial_detail where exchangesymbol = '09988' and sourcedatatype = 'balance_sheet' and datadatestring = 'Q3 2023'
 
+
+
+select * from financial_detail where exchangesymbol = 'TXN' and key like '%CashFlow%'
