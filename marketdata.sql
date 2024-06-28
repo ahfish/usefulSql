@@ -1420,3 +1420,12 @@ select * from market_price_gbpjpy_every_minute order by time desc
 copy (SELECT * FROM financial_detail) to '/home/ahfish/Downloads/StarRocks-3.2.4/financial_detail.csv' with csv header
 
 select sum(value), exchangesymbol from financial_detail where value > 0 and datatype = 'annual' and sourceunderlyingtype = 'large-cap-growth-stocks' group by exchangesymbol 
+
+SELECT id, "creationDate", "updatedOn", "exchangeName", "exchangeSymbol", symbol, "name", "underlyingType", "financeUrl", "keyRatioUrl", "marketCapactiryType"
+FROM public."MorningStarUnderlyings" where "exchangeName" = 'xtse'
+https://www.morningstar.com/stocks/xnys/bki/financials
+
+SELECT rolname AS owner
+FROM pg_catalog.pg_class cls
+JOIN pg_catalog.pg_roles rol ON rol.oid = cls.relowner
+WHERE cls.relname = 'MorningStarUnderlyings';
