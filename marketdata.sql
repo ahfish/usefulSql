@@ -1422,10 +1422,13 @@ copy (SELECT * FROM financial_detail) to '/home/ahfish/Downloads/StarRocks-3.2.4
 select sum(value), exchangesymbol from financial_detail where value > 0 and datatype = 'annual' and sourceunderlyingtype = 'large-cap-growth-stocks' group by exchangesymbol 
 
 SELECT id, "creationDate", "updatedOn", "exchangeName", "exchangeSymbol", symbol, "name", "underlyingType", "financeUrl", "keyRatioUrl", "marketCapactiryType"
-FROM public."MorningStarUnderlyings" where "exchangeName" = 'xtse'
+FROM public."MorningStarUnderlyings" where "exchangeName" = 'xwbo'
 https://www.morningstar.com/stocks/xnys/bki/financials
 
 SELECT rolname AS owner
 FROM pg_catalog.pg_class cls
 JOIN pg_catalog.pg_roles rol ON rol.oid = cls.relowner
 WHERE cls.relname = 'MorningStarUnderlyings';
+
+
+
