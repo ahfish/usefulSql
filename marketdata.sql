@@ -1385,6 +1385,7 @@ from
   SELECT 'truncate table ' || table_name || ';'  FROM information_schema.tables WHERE table_schema='public' and table_name like '%market_price%' and table_name not like '%market_price%view';
   
  select DATE_TRUNC('day', time), count(1) from ctrader_market_price_gbpusd_every_fifteen_minute cmpgefm group by DATE_TRUNC('day', time) order by DATE_TRUNC('day', time) desc
+ select DATE_TRUNC('day', time), count(1) from ctrader_market_price_gbpusd_every_fifteen_minute cmpgefm group by DATE_TRUNC('day', time) order by DATE_TRUNC('day', time) desc
  select DATE_TRUNC('day', time), count(1) from ctrader_market_price_zg_every_minute group by DATE_TRUNC('day', time) order by DATE_TRUNC('day', time) desc
  select DATE_TRUNC('day', time), count(1) from ctrader_market_price_gbpjpy_every_fifteen_minute cmpgefm group by DATE_TRUNC('day', time) order by DATE_TRUNC('day', time) desc
  select DATE_TRUNC('day', time), count(1) from ctrader_market_price_gbpjpy_every_minute cmpgefm group by DATE_TRUNC('day', time) order by DATE_TRUNC('day', time) desc

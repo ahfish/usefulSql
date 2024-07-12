@@ -25,6 +25,7 @@ CashFlowfromOperatingActivitiesIndirect
 CashFlowfromInvestingActivities
 CashFlowfromFinancingActivities
 
+select * from financial_detail where exchangesymbol = 'NVDA' and upper(key) like '%PRICE%' order by 
 
 CREATE OR REPLACE VIEW public.freecashflow_view
 AS SELECT financial_detail.exchangesymbol,
@@ -299,8 +300,13 @@ and ("2018"< "2019" )
 select * from macd_simulation_result order by profit_and_loss desc
 
 select * from "MorningStarUnderlyings" where "exchangeName" = 'xlon' where "exchangeSymbol" = 'MMM'
-select * from "MorningStarUnderlyings" where "exchangeName" = 'xhkg' and "keyRatioUrl" not like '%valuation'
-select distinct "exchangeName" from "MorningStarUnderlyings" where  "exchangeSymbol" = 'HK.0001'
+select count(1) from "MorningStarShares" where "morningStarExchangeId" = 'xhkg' order by "marketCap" desc
+select distinct "morningStarExchangeId" from "MorningStarShares"  
+select * from "MorningStarShares" where  "exchangeSymbol" = 'DOL'
+
+SELECT * from financial_detail where source = 'morningStart' and exchangeSymbol = 'NVDA' and sourceUnderlyingType = 'large-cap-growth-stocks' and datatype = 'annual' and dataDateString = '2024' and key = 'ReturnonAssetPercentage'
+SELECT * from financial_detail where source = 'morningStart' and exchangeSymbol = 'NVDA' and sourceUnderlyingType = 'large-cap-growth-stocks' and datatype = 'annual' and key = 'TaxRatePercentage'
+
 
 
 SELECT "id", "creationDate", "updatedOn", "exchangeName", "exchangeSymbol", "symbol", "underlyingType", "marketCapactiryType", "name", "financeUrl", "keyRatioUrl" FROM "MorningStarUnderlyings" AS "MorningStarUnderlying" WHERE "MorningStarUnderlying"."symbol" = 'MMM' LIMIT 1;
@@ -364,3 +370,6 @@ select * from financial_detail where exchangesymbol = '09988' and sourcedatatype
 
 
 select * from financial_detail where exchangesymbol = 'TXN' and key like '%CashFlow%'
+
+
+
