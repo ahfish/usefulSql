@@ -372,4 +372,10 @@ select * from financial_detail where exchangesymbol = '09988' and sourcedatatype
 select * from financial_detail where exchangesymbol = 'TXN' and key like '%CashFlow%'
 
 
-
+select "Date", count(1) from public."investing_share_ca" group by "Date" order by "Date" desc
+select "Date", count(1) from public."investing_share_us" group by "Date" order by "Date" desc
+select "Date", count(1) from public."investing_share_hk" group by "Date" order by "Date" desc
+select "Date", count(1) from public."investing_share_jp" group by "Date" order by "Date" desc
+select "Date", count(1) from public."investing_share_ge" group by "Date" order by "Date" desc
+select "Date", count(1) from public."investing_share_uk" group by "Date" order by "Date" desc
+select "Date", count(1) from public."investing_share_fr" group by "Date" order by "Date" desc
