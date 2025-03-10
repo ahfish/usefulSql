@@ -379,3 +379,22 @@ select "Date", count(1) from public."investing_share_jp" group by "Date" order b
 select "Date", count(1) from public."investing_share_ge" group by "Date" order by "Date" desc
 select "Date", count(1) from public."investing_share_uk" group by "Date" order by "Date" desc
 select "Date", count(1) from public."investing_share_fr" group by "Date" order by "Date" desc
+
+
+
+--- List table count
+WITH    tbl AS (
+ SELECT Table_Schema, Table_Name
+ FROM   information_schema.Tables
+ WHERE  Table_Name NOT LIKE 'pg_%'
+        AND Table_Schema IN ('public')
+)
+SELECT  Table_Schema AS Schema_Name
+,       Table_Name
+,       (xpath('/row/c/text()', query_to_xml(format(
+          'SELECT count(*) AS c FROM %I.%I', Table_Schema, Table_Name
+        ), FALSE, TRUE, '')))[1]::text::int AS Records_Count
+FROM    tbl
+ORDER   BY Records_Count DESC;
+          
+          
