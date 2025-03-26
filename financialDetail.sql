@@ -380,7 +380,7 @@ select "Date", count(1) from public."investing_share_ge" group by "Date" order b
 select "Date", count(1) from public."investing_share_uk" group by "Date" order by "Date" desc
 select "Date", count(1) from public."investing_share_fr" group by "Date" order by "Date" desc
 
-select * from public."investing_share_us"  where symbol = 'ENB'
+select * from public."investing_share_us"  where symbol = 'ENB' order by "Date" DESC
 
 
 
