@@ -313,9 +313,9 @@ SELECT "id", "creationDate", "updatedOn", "exchangeName", "exchangeSymbol", "sym
 select distinct exchangesymbol::TEXT,datadate,value
 from financial_detail 
 where sourcedatatype = ''cash_flow'' and key = ''CashFlowfromFinancingActivities'' and datatype = ''annual'' 
-order by 1,2'::text) 
+order by 1,2'::text)' 
 
-
+select * from public."MorningStarShares" where "exchangeSymbol" in ('JACS','AAM','ZUO','BEST','BALYT','FREY','ALTM','PNST','MPLN','LICY','CTV','MRP','') and "morningStarExchangeId" = 'xnys'
 
 
 INSERT INTO financial_detail (source,creationDate,updatedOn,exchangeSymbol,sourceUnderlyingType,sourceDataType,datatype,dataDateString,dataDate,key,value ) 
@@ -345,13 +345,17 @@ and old.dataDateString is null
 and old.key is null
 
 
-
+select * from public."MorningStarShares" where "exchangeSymbol" in ('08405','00592','01902','01469','02562','02207','01207','01665','01706','07836','01266','00668','08053','01992','06837') and "morningStarExchangeId" = ''
 
 select * from financial_detail where sourcedatatype  in ('operatingandefficiency', 'growth', 'operatingandefficiency', 'cashflow') order by creationdate desc
 select * from financial_detail where sourcedatatype  in ('operatingandefficiency', 'growth', 'operatingandefficiency', 'cashflow') and  creationdate <= '2023-01-01'
 
 
- 
+select distinct key from  public.financial_detail_xnas where exchangesymbol = 'EBMT' and lower(key) like '%dividend%'
+select distinct key from public.financial_detail_xnys where lower(key) like '%dividend%share%'
+select distinct key from public.financial_detail_xnas where lower(key) like '%dividend%share%'
+select * from public."MorningStarShares" where "morningStarExchangeId" = 'xasx'
+delete from public."MorningStarShares" where "morningStarExchangeId" = 'xasx'
 
 select * from financial_detail where exchangesymbol = 'AEP' and sourcedatatype = 'growth' order by updatedon desc
 select * from financial_detail where exchangesymbol = 'AEP' and sourcedatatype = 'operatingandefficiency' order by updatedon desc
@@ -372,6 +376,7 @@ select * from financial_detail where exchangesymbol = '09988' and sourcedatatype
 select * from financial_detail where exchangesymbol = 'TXN' and key like '%CashFlow%'
 
 
+select "Date", count(1) from public."investing_share_au" group by "Date" order by "Date" desc
 select "Date", count(1) from public."investing_share_ca" group by "Date" order by "Date" desc
 select "Date", count(1) from public."investing_share_us" group by "Date" order by "Date" desc
 select "Date", count(1) from public."investing_share_hk" group by "Date" order by "Date" desc
@@ -382,7 +387,9 @@ select "Date", count(1) from public."investing_share_fr" group by "Date" order b
 
 select * from public."investing_share_us"  where symbol = 'ENB' order by "Date" DESC
 
-
+select distinct "morningStarExchangeId"  from public."MorningStarShares" 
+select * from public."MorningStarShares" where "morningStarExchangeId" = 'xnas' and "updatedOn" <= '2025-03-12 11:52:13.462 +0100' order by "marketCap" DESC
+xnas
 
 --- List table count
 WITH    tbl AS (
