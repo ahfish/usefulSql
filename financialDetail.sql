@@ -372,6 +372,7 @@ select * from financial_detail where exchangesymbol = '09988' and sourcedatatype
 select * from financial_detail where exchangesymbol = '09988' and sourcedatatype = 'balance_sheet' and datadatestring = 'Q3 2023'
 
 
+delete from "MorningStarShares" where "exchangeSymbol" in ('317A','9675','3254','7125','8890','5935','3990','1973','6640','5573','8732','5594','232A','7342','') and "morningStarExchangeId" = 'xtks'
 
 select * from financial_detail where exchangesymbol = 'TXN' and key like '%CashFlow%'
 
@@ -387,7 +388,7 @@ select "Date", count(1) from public."investing_share_fr" group by "Date" order b
 
 select * from public."investing_share_us"  where symbol = 'ENB' order by "Date" DESC
 
-select distinct "morningStarExchangeId"  from public."MorningStarShares" 
+select distinct "morningStarExchangeId"  from public."MorningStarShares" r
 select * from public."MorningStarShares" where "morningStarExchangeId" = 'xnas' and "updatedOn" <= '2025-03-12 11:52:13.462 +0100' order by "marketCap" DESC
 xnas
 
@@ -406,4 +407,7 @@ SELECT  Table_Schema AS Schema_Name
 FROM    tbl
 ORDER   BY Records_Count DESC;
           
-          
+select * from "MorningStarShares" where "exchangeSymbol" = 'ENB'
+select * from "MorningStarShares" where "morningStarExchangeId"  = 'xnys'
+
+
