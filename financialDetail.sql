@@ -390,7 +390,8 @@ select * from public."investing_share_us"  where symbol = 'ENB' order by "Date" 
 
 select distinct "morningStarExchangeId"  from public."MorningStarShares" r
 select * from public."MorningStarShares" where "morningStarExchangeId" = 'xnas' and "updatedOn" <= '2025-03-12 11:52:13.462 +0100' order by "marketCap" DESC
-xnas
+
+select * from public."MorningStarShares" where "morningStarExchangeId" = 'xnse' 
 
 --- List table count
 WITH    tbl AS (
