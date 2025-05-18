@@ -366,7 +366,8 @@ growth
 financialHealth
 cashFlow
 
-
+select distinct sourcedatatype  from financial_detail_xnas
+select * from financial_detail_xnas
 
 select * from financial_detail where exchangesymbol = '09988' and sourcedatatype = 'balance_sheet' order by updatedon desc
 select * from financial_detail where exchangesymbol = '09988' and sourcedatatype = 'balance_sheet' and datadatestring = 'Q3 2023'
@@ -376,7 +377,7 @@ delete from "MorningStarShares" where "exchangeSymbol" in ('317A','9675','3254',
 
 select * from financial_detail where exchangesymbol = 'TXN' and key like '%CashFlow%'
 
-
+select "Date", count(1) from public."investing_share_in" group by "Date" order by "Date" desc
 select "Date", count(1) from public."investing_share_au" group by "Date" order by "Date" desc
 select "Date", count(1) from public."investing_share_ca" group by "Date" order by "Date" desc
 select "Date", count(1) from public."investing_share_us" group by "Date" order by "Date" desc
@@ -412,3 +413,18 @@ select * from "MorningStarShares" where "exchangeSymbol" = 'ENB'
 select * from "MorningStarShares" where "morningStarExchangeId"  = 'xnys'
 
 
+delete from public."MorningStarShares" where "exchangeSymbol" in ('7268','5610','9522','9243','8215','7518','1730','3857','3322','9388','1439','') and "morningStarExchangeId" = 'xtks';
+
+
+delete from public."MorningStarShares" where "exchangeSymbol" in ('AADI','ICLK','CTCX','TBNK','LYT','GLAC','FFIE','DGHI','AVTE','OMGA','BECN','NXU','APTO','IVAC','BHIL','VBFC','CUTR','HCP','MSSA','CJJD','ME','AIEV','ALTR','AWH','CRKN','ICCH','VMCA','PEV','CFB','') and "morningStarExchangeId" = 'xnas'
+select * from public."MorningStarShares" where "exchangeSymbol" in ('AADI','ICLK','CTCX','TBNK','LYT','GLAC','FFIE','DGHI','AVTE','OMGA','BECN','NXU','APTO','IVAC','BHIL','VBFC','CUTR','HCP','MSSA','CJJD','ME','AIEV','ALTR','AWH','CRKN','ICCH','VMCA','PEV','CFB','') and "morningStarExchangeId" = 'xnys'
+
+delete from public."MorningStarShares" where "exchangeSymbol" in ('CLRC','HPH','ACCD','BUJA','SPGC','GBBK','ACHL','') and "morningStarExchangeId" = 'xnas';
+
+
+
+delete from public."MorningStarShares" where "exchangeSymbol" in ('ONVO','VRPX','BCOW','') and "morningStarExchangeId" = 'xnas';
+delete from public."MorningStarShares" where "exchangeSymbol" in ('LGTY','SYRS','SDIG','') and "morningStarExchangeId" = 'xnas';
+
+delete from public."MorningStarShares" where upper("exchangeSymbol") in ('ALVR','CDXC','GLST','TCTM','OCEA','CTHR','') and "morningStarExchangeId" = 'xnas'
+delete from public."MorningStarShares" where "exchangeSymbol" in ('GDST','YOTA','SYRA','AFAR','PYCR','DECA','WINV','') and "morningStarExchangeId" = 'xnas';

@@ -1399,7 +1399,8 @@ from
  select DATE_TRUNC('day', time), count(1) from market_price_zg_every_five_minute group by DATE_TRUNC('day', time) order by DATE_TRUNC('day', time) desc
  select DATE_TRUNC('day', time), count(1) from market_price_zg_every_five_minute group by DATE_TRUNC('day', time) order by DATE_TRUNC('day', time) desc
  select DATE_TRUNC('day', time), count(1) from market_price_zg_every_five_minute group by DATE_TRUNC('day', time) order by DATE_TRUNC('day', time) desc
- select DATE_TRUNC('day', time), count(1) from market_price_gbpjpy_every_minute group by DATE_TRUNC('day', time) order by DATE_TRUNC('day', time) desc
+ 
+
   select DATE_TRUNC('day', time), count(1) from market_price_gbpusd_every_minute group by DATE_TRUNC('day', time) order by DATE_TRUNC('day', time) desc
  select DATE_TRUNC('day', time), count(1) from market_price_gbpjpy_every_five_minute group by DATE_TRUNC('day', time) order by DATE_TRUNC('day', time) desc
  select DATE_TRUNC('day', time), count(1) from market_price_gbpusd_every_five_minute group by DATE_TRUNC('day', time) order by DATE_TRUNC('day', time) desc
@@ -1418,7 +1419,7 @@ select DATE_TRUNC('day', time), count(1) from market_price_gbpjpy_every_fifteen_
 
 select * from market_price_gbpjpy_every_minute where time >= '2022-08-01 00:00:00' order by time 
 
-
+select * from financial_detail_xnas
 
 copy (SELECT * FROM financial_detail) to '/home/ahfish/Downloads/StarRocks-3.2.4/financial_detail.csv' with csv header
 
@@ -1432,7 +1433,5 @@ SELECT rolname AS owner
 FROM pg_catalog.pg_class cls
 JOIN pg_catalog.pg_roles rol ON rol.oid = cls.relowner
 WHERE cls.relname = 'MorningStarUnderlyings';
-
-
 
 
