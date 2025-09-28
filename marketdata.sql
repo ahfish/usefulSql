@@ -1384,6 +1384,8 @@ from
   SELECT table_name FROM information_schema.tables WHERE table_schema='public' and table_name like '%market_price%' 
   SELECT 'truncate table ' || table_name || ';'  FROM information_schema.tables WHERE table_schema='public' and table_name like '%market_price%' and table_name not like '%market_price%view';
   
+  
+  
  select DATE_TRUNC('day', time), count(1) from ctrader_market_price_gbpusd_every_fifteen_minute cmpgefm group by DATE_TRUNC('day', time) order by DATE_TRUNC('day', time) desc
  select DATE_TRUNC('day', time), count(1) from ctrader_market_price_gbpusd_every_fifteen_minute cmpgefm group by DATE_TRUNC('day', time) order by DATE_TRUNC('day', time) desc
  select DATE_TRUNC('day', time), count(1) from ctrader_market_price_zg_every_minute group by DATE_TRUNC('day', time) order by DATE_TRUNC('day', time) desc
@@ -1399,7 +1401,7 @@ from
  select DATE_TRUNC('day', time), count(1) from market_price_zg_every_five_minute group by DATE_TRUNC('day', time) order by DATE_TRUNC('day', time) desc
  select DATE_TRUNC('day', time), count(1) from market_price_zg_every_five_minute group by DATE_TRUNC('day', time) order by DATE_TRUNC('day', time) desc
  select DATE_TRUNC('day', time), count(1) from market_price_zg_every_five_minute group by DATE_TRUNC('day', time) order by DATE_TRUNC('day', time) desc
- 
+
 
   select DATE_TRUNC('day', time), count(1) from market_price_gbpusd_every_minute group by DATE_TRUNC('day', time) order by DATE_TRUNC('day', time) desc
  select DATE_TRUNC('day', time), count(1) from market_price_gbpjpy_every_five_minute group by DATE_TRUNC('day', time) order by DATE_TRUNC('day', time) desc
@@ -1433,5 +1435,14 @@ SELECT rolname AS owner
 FROM pg_catalog.pg_class cls
 JOIN pg_catalog.pg_roles rol ON rol.oid = cls.relowner
 WHERE cls.relname = 'MorningStarUnderlyings';
+
+
+select 'create table ' || table_name  || ' AS SELECT * FROM postgres_scan(''host=localhost user=ahfish dbname=marketPrice port=5432'', ''public'', '''  || table_name ||  ''');' from information_schema."tables" t where t.table_schema = 'public'
+where 
+
+
+SELECT * FROM information_schema.tables WHERE table_schema='public' and table_catalog = 'financialDetail' and lower(table_name) like '%us%' 
+                      
+                      
 
 

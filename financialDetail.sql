@@ -377,6 +377,8 @@ delete from "MorningStarShares" where "exchangeSymbol" in ('317A','9675','3254',
 
 select * from financial_detail where exchangesymbol = 'TXN' and key like '%CashFlow%'
 
+select * from public."investing_share_au" where symbol = 'RAS' order by "Date" desc
+
 select "Date", count(1) from public."investing_share_in" group by "Date" order by "Date" desc
 select "Date", count(1) from public."investing_share_au" group by "Date" order by "Date" desc
 select "Date", count(1) from public."investing_share_ca" group by "Date" order by "Date" desc
@@ -387,12 +389,16 @@ select "Date", count(1) from public."investing_share_ge" group by "Date" order b
 select "Date", count(1) from public."investing_share_uk" group by "Date" order by "Date" desc
 select "Date", count(1) from public."investing_share_fr" group by "Date" order by "Date" desc
 
+delete from public."MorningStarShares" where "exchangeSymbol" in ('AYUPA','LYK','MCY','DJW','') and "morningStarExchangeId" = 'xasx';
+
+select * from public."MorningStarShares" where "exchangeSymbol" in ('AYUPA','LYK','MCY','DJW','') and "morningStarExchangeId" = 'xasx';
+
 select * from public."investing_share_us"  where symbol = 'ENB' order by "Date" DESC
 
 select distinct "morningStarExchangeId"  from public."MorningStarShares" r
 select * from public."MorningStarShares" where "morningStarExchangeId" = 'xnas' and "updatedOn" <= '2025-03-12 11:52:13.462 +0100' order by "marketCap" DESC
 
-select * from public."MorningStarShares" where "morningStarExchangeId" = 'xnse' 
+select * from public."MorningStarShares" where "morningStarExchangeId" = 'xnse'  order by "marketCap" desc
 
 --- List table count
 WITH    tbl AS (
@@ -417,7 +423,9 @@ delete from public."MorningStarShares" where "exchangeSymbol" in ('7268','5610',
 
 
 delete from public."MorningStarShares" where "exchangeSymbol" in ('AADI','ICLK','CTCX','TBNK','LYT','GLAC','FFIE','DGHI','AVTE','OMGA','BECN','NXU','APTO','IVAC','BHIL','VBFC','CUTR','HCP','MSSA','CJJD','ME','AIEV','ALTR','AWH','CRKN','ICCH','VMCA','PEV','CFB','') and "morningStarExchangeId" = 'xnas'
-select * from public."MorningStarShares" where "exchangeSymbol" in ('AADI','ICLK','CTCX','TBNK','LYT','GLAC','FFIE','DGHI','AVTE','OMGA','BECN','NXU','APTO','IVAC','BHIL','VBFC','CUTR','HCP','MSSA','CJJD','ME','AIEV','ALTR','AWH','CRKN','ICCH','VMCA','PEV','CFB','') and "morningStarExchangeId" = 'xnys'
+delete from public."MorningStarShares" where "exchangeSymbol" in ('08045','00906','') and "morningStarExchangeId" = 'xhkg'
+
+select distinct "morningStarExchangeId" from public."MorningStarShares" 
 
 delete from public."MorningStarShares" where "exchangeSymbol" in ('CLRC','HPH','ACCD','BUJA','SPGC','GBBK','ACHL','') and "morningStarExchangeId" = 'xnas';
 
@@ -428,3 +436,149 @@ delete from public."MorningStarShares" where "exchangeSymbol" in ('LGTY','SYRS',
 
 delete from public."MorningStarShares" where upper("exchangeSymbol") in ('ALVR','CDXC','GLST','TCTM','OCEA','CTHR','') and "morningStarExchangeId" = 'xnas'
 delete from public."MorningStarShares" where "exchangeSymbol" in ('GDST','YOTA','SYRA','AFAR','PYCR','DECA','WINV','') and "morningStarExchangeId" = 'xnas';
+
+
+delete from public."MorningStarShares" where "exchangeSymbol" in ('ENZ','NVRO','FNA','GOLD','FBMS','DESP','ENFN','ML','MKFG','EQC','DM','DFS','EARN','EDR','LGF.A','LGF.B','SWI','SHOP','AMPS','JWN','VRN','DTC','MYTE','BERY','SPLP','') and "morningStarExchangeId" = 'xnys'
+delete from public."MorningStarShares" where "exchangeSymbol" in ('9161','5585','2107','2977','4304','9852','7559','5481','') and "morningStarExchangeId" = 'xtks'
+delete from  public."MorningStarShares" where "exchangeSymbol" in ('3604','8905','7386','2372','6131','2397','3458','3264','3978','6715','6697','9070','6319','5277','9749','174A','8038','4298','6967','9260') and "morningStarExchangeId" = 'xtks'
+
+delete from public."MorningStarShares" where "exchangeSymbol" in ('0R3G','AJAX','CRES','0Q1S','ROSE','0A2P','TLY','0A2L','0Q15','RAI','PRES','MSYS','RGP','0R0T','0QOS','0W2Y','NTOG','0A2Z','0RNH','0R16','0QZO','OHT','0QZ1','ACID','SHPC','0QZI','0QAH','AQX','0XWG','BIOM','STA','BAR','0HLU','') and "morningStarExchangeId" = 'xlon'
+
+delete  from public."MorningStarShares" where "exchangeSymbol" in ('4173','4435','3666') and "morningStarExchangeId" = 'xtks'
+select * from financial_detail_xnys where sourcedatatype = 'profitabilityandefficiency' and exchangesymbol = 'VTEX'
+select distinct sourcedatatype  from financial_detail_xnys
+
+select * from public."MorningStarShares" 
+
+select 'create table ' || table_name  || ' AS SELECT * FROM postgres_scan(''host=localhost user=ahfish dbname=financialDetail port=5432'', ''public'', '''  || table_name ||  ''');' from information_schema."tables" t where t.table_schema = 'public'
+
+'AS SELECT * FROM postgres_scan(''host=localhost user=ahfish dbname=financialDetail port=5432'', ''public'', ''investing_share_us'');'
+
+
+create table investing_share_us_test AS SELECT * FROM postgres_scan('host=localhost user=ahfish dbname=financialDetail port=5432', 'public', 'investing_share_us');
+
+
+
+CREATE TABLE IF NOT EXISTS investing_share_detail_australia ( symbol VARCHAR(20) NOT NULL, date DATE NOT NULL, datasourcetype VARCHAR(20) NOT NULL, valuetype VARCHAR(50) NOT NULL, value FLOAT,  PRIMARY KEY (symbol, date, datasourcetype, valuetype) );
+INSERT INTO investing_share_detail_australia (symbol, date, datasourcetype, valuetype, value) VALUES ('SXL', '2025-06-19', 'Valuation', 'Price to Sales', 0.3) ON CONFLICT (symbol, date, datasourcetype, valuetype) DO UPDATE SET value = EXCLUDED.value;
+
+
+select * from investing_share_detail_australia
+select distinct valuetype from public.investing_share_detail_unitedstates
+select date,datasourcetype, count(1) from public.investing_share_detail_unitedstates where datasourcetype = 'Valuation' group by date,datasourcetype order by date desc
+select date,datasourcetype, count(1) from public.investing_share_detail_unitedkingdom where datasourcetype = 'Valuation' group by date,datasourcetype order by date desc
+select date,datasourcetype, count(1) from public.investing_share_detail_japan where datasourcetype = 'Valuation' group by date,datasourcetype order by date desc
+select date,datasourcetype, count(1) from public.investing_share_detail_india where datasourcetype = 'Valuation' group by date,datasourcetype order by date desc
+select date,datasourcetype, count(1) from public.investing_share_detail_hongkong where datasourcetype = 'Valuation' group by date,datasourcetype order by date desc
+select date,datasourcetype, count(1) from public.investing_share_detail_canada where datasourcetype = 'Valuation' group by date,datasourcetype order by date desc
+select date,datasourcetype, count(1) from public.investing_share_detail_australia  where datasourcetype = 'Valuation' group by date,datasourcetype order by date desc
+select date,datasourcetype, count(1) from public.investing_share_detail_france  where datasourcetype = 'Valuation' group by date,datasourcetype order by date desc
+select date,datasourcetype, count(1) from public.investing_share_detail_germany where datasourcetype = 'Valuation' group by date,datasourcetype order by date desc
+
+select *from public.investing_share_detail_australia  where datasourcetype = 'Valuation' order by date desc
+INSERT INTO investing_share_detail_australia (symbol, date, datasourcetype, valuetype, value) VALUES ('CGF', '2025-06-30', 'Valuation', 'Price to Sales', 1.6) ON CONFLICT (symbol, date, datasourcetype, valuetype) DO UPDATE SET value = EXCLUDED.value;
+
+select date,datasourcetype, valuetype, count(1) from public.investing_share_detail_unitedstates where datasourcetype = 'Risk' group by date,datasourcetype, valuetype order by date desc
+select date,datasourcetype, valuetype, count(1) from public.investing_share_detail_unitedkingdom where datasourcetype = 'Risk' group by date,datasourcetype, valuetype order by date desc
+select date,datasourcetype, valuetype, count(1) from public.investing_share_detail_japan where datasourcetype = 'Risk' group by date,datasourcetype, valuetype order by date desc
+select date,datasourcetype, valuetype, count(1) from public.investing_share_detail_india where datasourcetype = 'Risk' group by date,datasourcetype, valuetype order by date desc
+select date,datasourcetype, valuetype, count(1) from public.investing_share_detail_hongkong where datasourcetype = 'Risk' group by date,datasourcetype, valuetype order by date desc
+select date,datasourcetype, valuetype, count(1) from public.investing_share_detail_canada where datasourcetype = 'Risk' group by date,datasourcetype, valuetype order by date desc
+select date,datasourcetype, valuetype, count(1) from public.investing_share_detail_australia  where datasourcetype = 'Risk' group by date,datasourcetype, valuetype order by date desc
+select date,datasourcetype, valuetype, count(1) from public.investing_share_detail_france  where datasourcetype = 'Risk' group by date,datasourcetype, valuetype order by date desc
+select date,datasourcetype, valuetype, count(1) from public.investing_share_detail_germany  where datasourcetype = 'Risk' group by date,datasourcetype, valuetype order by date desc
+
+
+select date,datasourcetype, valuetype, count(1) from public.investing_share_detail_unitedstates where datasourcetype = 'Growth' group by date,datasourcetype, valuetype order by date desc
+select date,datasourcetype, valuetype, count(1) from public.investing_share_detail_unitedkingdom where datasourcetype = 'Growth' group by date,datasourcetype, valuetype order by date desc
+select date,datasourcetype, valuetype, count(1) from public.investing_share_detail_japan where datasourcetype = 'Growth' group by date,datasourcetype, valuetype order by date desc
+select date,datasourcetype, valuetype, count(1) from public.investing_share_detail_india where datasourcetype = 'Growth' group by date,datasourcetype, valuetype order by date desc
+select date,datasourcetype, valuetype, count(1) from public.investing_share_detail_hongkong where datasourcetype = 'Growth' group by date,datasourcetype, valuetype order by date desc
+select date,datasourcetype, valuetype, count(1) from public.investing_share_detail_canada where datasourcetype = 'Growth' group by date,datasourcetype, valuetype order by date desc
+select date,datasourcetype, valuetype, count(1) from public.investing_share_detail_australia  where datasourcetype = 'Growth' group by date,datasourcetype, valuetype order by date desc
+select date,datasourcetype, valuetype, count(1) from public.investing_share_detail_france  where datasourcetype = 'Growth' group by date,datasourcetype, valuetype order by date desc
+select date,datasourcetype, valuetype, count(1) from public.investing_share_detail_germany  where datasourcetype = 'Growth' group by date,datasourcetype, valuetype order by date desc
+
+select date,datasourcetype, valuetype, count(1) from public.investing_share_detail_unitedstates where datasourcetype = 'Financials' group by date,datasourcetype, valuetype order by date desc
+select date,datasourcetype, valuetype, count(1) from public.investing_share_detail_unitedkingdom where datasourcetype = 'Financials' group by date,datasourcetype, valuetype order by date desc
+select date,datasourcetype, valuetype, count(1) from public.investing_share_detail_japan where datasourcetype = 'Financials' group by date,datasourcetype, valuetype order by date desc
+select date,datasourcetype, valuetype, count(1) from public.investing_share_detail_india where datasourcetype = 'Financials' group by date,datasourcetype, valuetype order by date desc
+select date,datasourcetype, valuetype, count(1) from public.investing_share_detail_hongkong where datasourcetype = 'Financials' group by date,datasourcetype, valuetype order by date desc
+select date,datasourcetype, valuetype, count(1) from public.investing_share_detail_canada where datasourcetype = 'Financials' group by date,datasourcetype, valuetype order by date desc
+ 	
+
+
+select distinct exchange from investing_share_detail where country = 'Australia'
+
+select * from investing_share_detail where country = 'India' and exchange = 'BSE'
+select 
+'INSERT INTO public."MorningStarShares"
+("creationDate", "updatedOn", "morningStarExchangeId", "exchangeSymbol", "morningStarId", sector, "stockType", "marketCap", "stockName", "financeUrl", "keyRatioUrl")
+VALUES(' 
+|| 'NOW(),' 
+|| 'NOW(),' 
+|| '''xasx'',' 
+|| '''' || upper(symbol) || ''''
+|| ','''',' 
+|| '''' || sector || ''','
+|| '''' || industry || ''',' 
+|| marketCap || ','
+|| '''' || name || ''','
+|| '''https://www.morningstar.com/stocks/xnas/' || lower(symbol) || '/financials'','
+|| '''https://www.morningstar.com/stocks/xnas/' || lower(symbol) || '/valuation'');'
+from 
+investing_share_detail where country = 'Australia'
+
+select 
+'INSERT INTO public."MorningStarShares"
+("creationDate", "updatedOn", "morningStarExchangeId", "exchangeSymbol", "morningStarId", sector, "stockType", "marketCap", "stockName", "financeUrl", "keyRatioUrl")
+VALUES(' 
+|| 'NOW(),' 
+|| 'NOW(),' 
+|| '''xnse'',' 
+|| '''' || upper(symbol) || ''''
+|| ','''',' 
+|| '''' || sector || ''','
+|| '''' || industry || ''',' 
+|| marketCap || ','
+|| '''' || name || ''','
+|| '''https://www.morningstar.com/stocks/xnse/' || lower(symbol) || '/financials'','
+|| '''https://www.morningstar.com/stocks/xnse/' || lower(symbol) || '/valuation'');'
+from 
+investing_share_detail where country = 'India' and exchange = 'BSE'
+select 
+
+
+select 
+'INSERT INTO public."MorningStarShares" VALUES(' 
+from 
+investing_share_detail where country = 'Australia'
+
+select distinct exchange from investing_share_detail where country = 'India'
+
+select
+"avgVolume","exchangeId","flag","countryNameTranslated","fundamentalBeta","fundamentalMarketCap","fundamentalRatio","fundamentalRevenue","investingComid","lastPairDecimal","name","pairType","symbol","time"
+from public."InvestingComShares" where flag = 'US'  
+
+select * from public."InvestingComShares" where flag = 'US'
+select * from public.investing_share_uk where "Date" = '2025-09-19' order by "Date" desc
+
+insert into public."InvestingComShares" 
+("avgVolume","exchangeId","flag","countryNameTranslated","fundamentalBeta","fundamentalMarketCap","fundamentalRatio","lastPairDecimal","pairType","symbol" )
+select "avgvolume","exchangeid","flag","countrynametranslated","fundamentalbeta","fundamentalmarketcap","fundamentalratio","lastpairdecimal","pairtype","symbol" from public.investing_share_uk where "Date" = '2025-09-19'
+
+select* from public.investing_share_uk 
+
+
+delete from public."MorningStarShares" where "exchangeSymbol" in ('ALIMR','0R24','MLPLC','0QZ6','ALENR','PIER','MLALV','MLCAC','MLPET','CMO','CNV','ALMET','0A6L','MLACT','ALAQU','0HLE','MLGAI','MLCMI','UNBL','MLERO','0A22','MLCHE','MLPRX','MLCLI','0R1W','MLGLB','MLVIE','MLARD','FAYE','0A2I','0HN0','0Q1F','CAFO','MLSRP','GOOD','MLVST','ALMDP','ALGAU','MLSTR','0K75','0R9U','RWI','PWG','LTG','NEOEN','KWG','CATG','ALAUR','TIFS','FINA','MLDYX','MLBSP','BMN','MLIMP','MLBMD','ALVET','MLCMG','MLVIR','MLMAD','MLEDU','MLVER','ALQP','ALIDS','MLONL','ALACT','MLSGT','MLCFD','MLSDN','ALDOL','0A2X','MLFNP','0R37','MLPRI','MLAEM','MLPHO','EXN','MLAA','INHC','MLMCA','MLHPE','GBP','0R0X','FDJ','0LQ0','ALNFL','MLFDV','MLUAV','ALVAZ','ALMIN','ALAST','ALESK','MLGRC','') and "morningStarExchangeId" = 'xpar'
+
+delete from public."MorningStarShares" where "exchangeSymbol" in ('ALOPM','') and "morningStarExchangeId" = 'xpar';
+
+INSERT INTO investing_share_GE ( "Date", AvgVolume, Chg, ChgPct, CountryNameTranslated , ExchangeId , Flag , FundamentalBeta , FundamentalMarketCap , FundamentalRatio , FundamentalRevenue, High , Id , IsCFD , IsOpen,"Last" , LastPairDecimal , Low, "Name", PairType, Performance3Year , PerformanceDay , PerformanceMonth , PerformanceWeek , PerformanceYear , PerformanceYtd , Symbol , TechnicalDay , TechnicalHour , TechnicalMonth , TechnicalWeek , "Time", Url , Volume) values('20250620', 0,0,0,'Germany','123','DE',0,0,0,'39.75M',91, '994894','false','0',91,2,91,'Calvatis GmbH','Equities',0,0,0,0,0,0,'CISg','sell','','sell','sell','1638431429','/equities/calvatis-gmbh',0) ON CONFLICT ( "Date", ExchangeId, Symbol) DO UPDATE SET AvgVolume = EXCLUDED.AvgVolume, Chg = EXCLUDED.Chg, ChgPct = EXCLUDED.ChgPct, CountryNameTranslated  = EXCLUDED.CountryNameTranslated , Flag  = EXCLUDED.Flag , FundamentalBeta  = EXCLUDED.FundamentalBeta , FundamentalMarketCap  = EXCLUDED.FundamentalMarketCap , FundamentalRatio  = EXCLUDED.FundamentalRatio , FundamentalRevenue = EXCLUDED.FundamentalRevenue, High  = EXCLUDED.High , Id  = EXCLUDED.Id , IsCFD  = EXCLUDED.IsCFD , IsOpen  = EXCLUDED.IsOpen , "Last"  = EXCLUDED."Last" , LastPairDecimal  = EXCLUDED.LastPairDecimal , Low  = EXCLUDED.Low , "Name" = EXCLUDED."Name", PairType = EXCLUDED.PairType, Performance3Year  = EXCLUDED.Performance3Year , PerformanceDay  = EXCLUDED.PerformanceDay , PerformanceMonth  = EXCLUDED.PerformanceMonth , PerformanceWeek  = EXCLUDED.PerformanceWeek , PerformanceYear  = EXCLUDED.PerformanceYear , PerformanceYtd  = EXCLUDED.PerformanceYtd , TechnicalDay  = EXCLUDED.TechnicalDay , TechnicalHour  = EXCLUDED.TechnicalHour , TechnicalMonth  = EXCLUDED.TechnicalMonth , TechnicalWeek  = EXCLUDED.TechnicalWeek , "Time"  = EXCLUDED."Time" , Url  = EXCLUDED.Url ,  Volume = EXCLUDED.Volume; 
+
+ 
+ 
+ delete from public."MorningStarShares" where "exchangeSymbol" in ('NYMT','FLIC','TFIN','KWE','CLEU','HMST','LANC','RSLS','BLUE','KIRK','PWOD','FARO','NWTN','FGF','VXRT','RMBL','XYLO','IKNA','VERV','PTMN','LSEA','CHX','IPA','RGLS','SSBK','JNVR','VSTE','GLYC','OB','MULN','CKPT','EMCG','STRM','THRD','CGBS','OCX','BRAC','SLRN','MCAA','ESSA','PARAA','LGMK','SNRE','SNPX','SAGE','BIGC','PLYA','ZVSA','AYRO','ZCAR','PRLH','PPBI','OPTN','ELEV','CSWI','RDUS','AGFY','CRGX','FHLT','LIPO','LDTC','TPIC','LTRY','PET','VERB','JUNE','SHLT','SRM','BLDE','HOOK','PARA','HEES','SYT','EBTC','MODV','KDLY','MCVT','ANSS','HOFV','FMTO','HSON','PTPI','MRIN','VCSA','SANW','VIRT','STRR','AMED','GMFI','EYEN','ATNF','GRYP','CCIR','ZAPP','JVSA','ESGR','CEAD','DIST','UBX','STAF','PLL','GAN','ICCT','DADA','BSGM','GOGL','SHYF','ITOS','HLXB','SWTX','OTRK','BPMC','') and "morningStarExchangeId" = 'xnas';
+ delete from  public."MorningStarShares" where "exchangeSymbol" in ('WLGS','AKYA','WINT','OPOF','AHI','AVGR','TSVT','DATS','') and "morningStarExchangeId" = 'xnas';
+ 
+ 
