@@ -1408,6 +1408,9 @@ from
  select DATE_TRUNC('day', time), count(1) from market_price_gbpusd_every_five_minute group by DATE_TRUNC('day', time) order by DATE_TRUNC('day', time) desc
   select DATE_TRUNC('day', time), count(1) from market_price_gbpjpy_every_fifteen_minute group by DATE_TRUNC('day', time) order by DATE_TRUNC('day', time) desc
  SELECT DATE_TRUNC('hour', TIMESTAMP '2017-03-17 02:09:30');
+  
+  select * from market_price_gbpjpy_every_fifteen_minute order by time asc 
+  select * from market_price_gbpjpy_hourly order by time asc
 
 select * from market_price_zg_every_five_minute
 select * from market_price_gbpjpy_every_minute order by time desc

@@ -560,14 +560,73 @@ select
 "avgVolume","exchangeId","flag","countryNameTranslated","fundamentalBeta","fundamentalMarketCap","fundamentalRatio","fundamentalRevenue","investingComid","lastPairDecimal","name","pairType","symbol","time"
 from public."InvestingComShares" where flag = 'US'  
 
+select distinct "countryNameTranslated" from public."InvestingComShares" 
+select * from public."InvestingComShares" where "countryNameTranslated" = 'India' 
+
+
 select * from public."InvestingComShares" where flag = 'US'
 select * from public.investing_share_uk where "Date" = '2025-09-19' order by "Date" desc
 
 insert into public."InvestingComShares" 
-("avgVolume","exchangeId","flag","countryNameTranslated","fundamentalBeta","fundamentalMarketCap","fundamentalRatio","lastPairDecimal","pairType","symbol" )
-select "avgvolume","exchangeid","flag","countrynametranslated","fundamentalbeta","fundamentalmarketcap","fundamentalratio","lastpairdecimal","pairtype","symbol" from public.investing_share_uk where "Date" = '2025-09-19'
+("avgVolume","exchangeId","flag","countryNameTranslated","fundamentalBeta","fundamentalMarketCap","fundamentalRatio","lastPairDecimal","pairType","symbol", "name", "fundamentalRevenue" )
+select "avgvolume","exchangeid","flag","countrynametranslated","fundamentalbeta","fundamentalmarketcap","fundamentalratio","lastpairdecimal","pairtype","symbol","Name", 
+       case
+	    WHEN fundamentalrevenue = '' THEN 'NaN'::float8
+        WHEN fundamentalrevenue ~ 'B$' 
+            THEN CAST(REGEXP_REPLACE(fundamentalrevenue, 'B$', '') AS DOUBLE PRECISION) * 1000000000
+        WHEN fundamentalrevenue ~ 'M$' 
+            THEN CAST(REGEXP_REPLACE(fundamentalrevenue, 'M$', '') AS DOUBLE PRECISION) * 1000000
+        WHEN fundamentalrevenue ~ 'T$' 
+            THEN CAST(REGEXP_REPLACE(fundamentalrevenue, 'T$', '') AS DOUBLE PRECISION) * 1000000000000
+        WHEN fundamentalrevenue ~ 'K$' 
+            THEN CAST(REGEXP_REPLACE(fundamentalrevenue, 'K$', '') AS DOUBLE PRECISION) * 1000            
+        ELSE CAST(fundamentalrevenue AS DOUBLE PRECISION)
+    END AS "fundamentalrevenue"
+from public.investing_share_uk where "Date" = '2025-09-19'
 
-select* from public.investing_share_uk 
+
+insert into public."InvestingComShares" 
+("avgVolume","exchangeId","flag","countryNameTranslated","fundamentalBeta","fundamentalMarketCap","fundamentalRatio","lastPairDecimal","pairType","symbol", "name", "fundamentalRevenue" )
+select "avgvolume","exchangeid","flag","countrynametranslated","fundamentalbeta","fundamentalmarketcap","fundamentalratio","lastpairdecimal","pairtype","symbol","Name", 
+       case
+	    WHEN fundamentalrevenue = '' THEN 'NaN'::float8
+        WHEN fundamentalrevenue ~ 'B$' 
+            THEN CAST(REGEXP_REPLACE(fundamentalrevenue, 'B$', '') AS DOUBLE PRECISION) * 1000000000
+        WHEN fundamentalrevenue ~ 'M$' 
+            THEN CAST(REGEXP_REPLACE(fundamentalrevenue, 'M$', '') AS DOUBLE PRECISION) * 1000000
+        WHEN fundamentalrevenue ~ 'T$' 
+            THEN CAST(REGEXP_REPLACE(fundamentalrevenue, 'T$', '') AS DOUBLE PRECISION) * 1000000000000
+        WHEN fundamentalrevenue ~ 'K$' 
+            THEN CAST(REGEXP_REPLACE(fundamentalrevenue, 'K$', '') AS DOUBLE PRECISION) * 1000            
+        ELSE CAST(fundamentalrevenue AS DOUBLE PRECISION)
+    END AS "fundamentalrevenue"
+from public.investing_share_au where "Date" = '2025-09-19'
+
+insert into public."InvestingComShares" 
+("avgVolume","exchangeId","flag","countryNameTranslated","fundamentalBeta","fundamentalMarketCap","fundamentalRatio","lastPairDecimal","pairType","symbol", "name", "fundamentalRevenue" )
+select "avgvolume","exchangeid","flag","countrynametranslated","fundamentalbeta","fundamentalmarketcap","fundamentalratio","lastpairdecimal","pairtype","symbol","Name", 
+       case
+	    WHEN fundamentalrevenue = '' THEN 'NaN'::float8
+	    WHEN fundamentalrevenue = 'N/A' THEN 'NaN'::float8
+        WHEN fundamentalrevenue ~ 'B$' 
+            THEN CAST(REGEXP_REPLACE(fundamentalrevenue, 'B$', '') AS DOUBLE PRECISION) * 1000000000
+        WHEN fundamentalrevenue ~ 'M$' 
+            THEN CAST(REGEXP_REPLACE(fundamentalrevenue, 'M$', '') AS DOUBLE PRECISION) * 1000000
+        WHEN fundamentalrevenue ~ 'T$' 
+            THEN CAST(REGEXP_REPLACE(fundamentalrevenue, 'T$', '') AS DOUBLE PRECISION) * 1000000000000
+        WHEN fundamentalrevenue ~ 'K$' 
+            THEN CAST(REGEXP_REPLACE(fundamentalrevenue, 'K$', '') AS DOUBLE PRECISION) * 1000            
+        ELSE CAST(fundamentalrevenue AS DOUBLE PRECISION)
+    END AS "fundamentalrevenue"
+from public.investing_share_in where "Date" = '2025-09-19'
+
+select distinct "countryNameTranslated" from public."InvestingComShares"
+select * from public."InvestingComShares" where "countryNameTranslated"  = 'United Kingdom'
+delete from public."InvestingComShares" where "countryNameTranslated"  = 'United Kingdom'
+
+
+
+select* from public.investing_share_au
 
 
 delete from public."MorningStarShares" where "exchangeSymbol" in ('ALIMR','0R24','MLPLC','0QZ6','ALENR','PIER','MLALV','MLCAC','MLPET','CMO','CNV','ALMET','0A6L','MLACT','ALAQU','0HLE','MLGAI','MLCMI','UNBL','MLERO','0A22','MLCHE','MLPRX','MLCLI','0R1W','MLGLB','MLVIE','MLARD','FAYE','0A2I','0HN0','0Q1F','CAFO','MLSRP','GOOD','MLVST','ALMDP','ALGAU','MLSTR','0K75','0R9U','RWI','PWG','LTG','NEOEN','KWG','CATG','ALAUR','TIFS','FINA','MLDYX','MLBSP','BMN','MLIMP','MLBMD','ALVET','MLCMG','MLVIR','MLMAD','MLEDU','MLVER','ALQP','ALIDS','MLONL','ALACT','MLSGT','MLCFD','MLSDN','ALDOL','0A2X','MLFNP','0R37','MLPRI','MLAEM','MLPHO','EXN','MLAA','INHC','MLMCA','MLHPE','GBP','0R0X','FDJ','0LQ0','ALNFL','MLFDV','MLUAV','ALVAZ','ALMIN','ALAST','ALESK','MLGRC','') and "morningStarExchangeId" = 'xpar'
@@ -576,9 +635,10 @@ delete from public."MorningStarShares" where "exchangeSymbol" in ('ALOPM','') an
 
 INSERT INTO investing_share_GE ( "Date", AvgVolume, Chg, ChgPct, CountryNameTranslated , ExchangeId , Flag , FundamentalBeta , FundamentalMarketCap , FundamentalRatio , FundamentalRevenue, High , Id , IsCFD , IsOpen,"Last" , LastPairDecimal , Low, "Name", PairType, Performance3Year , PerformanceDay , PerformanceMonth , PerformanceWeek , PerformanceYear , PerformanceYtd , Symbol , TechnicalDay , TechnicalHour , TechnicalMonth , TechnicalWeek , "Time", Url , Volume) values('20250620', 0,0,0,'Germany','123','DE',0,0,0,'39.75M',91, '994894','false','0',91,2,91,'Calvatis GmbH','Equities',0,0,0,0,0,0,'CISg','sell','','sell','sell','1638431429','/equities/calvatis-gmbh',0) ON CONFLICT ( "Date", ExchangeId, Symbol) DO UPDATE SET AvgVolume = EXCLUDED.AvgVolume, Chg = EXCLUDED.Chg, ChgPct = EXCLUDED.ChgPct, CountryNameTranslated  = EXCLUDED.CountryNameTranslated , Flag  = EXCLUDED.Flag , FundamentalBeta  = EXCLUDED.FundamentalBeta , FundamentalMarketCap  = EXCLUDED.FundamentalMarketCap , FundamentalRatio  = EXCLUDED.FundamentalRatio , FundamentalRevenue = EXCLUDED.FundamentalRevenue, High  = EXCLUDED.High , Id  = EXCLUDED.Id , IsCFD  = EXCLUDED.IsCFD , IsOpen  = EXCLUDED.IsOpen , "Last"  = EXCLUDED."Last" , LastPairDecimal  = EXCLUDED.LastPairDecimal , Low  = EXCLUDED.Low , "Name" = EXCLUDED."Name", PairType = EXCLUDED.PairType, Performance3Year  = EXCLUDED.Performance3Year , PerformanceDay  = EXCLUDED.PerformanceDay , PerformanceMonth  = EXCLUDED.PerformanceMonth , PerformanceWeek  = EXCLUDED.PerformanceWeek , PerformanceYear  = EXCLUDED.PerformanceYear , PerformanceYtd  = EXCLUDED.PerformanceYtd , TechnicalDay  = EXCLUDED.TechnicalDay , TechnicalHour  = EXCLUDED.TechnicalHour , TechnicalMonth  = EXCLUDED.TechnicalMonth , TechnicalWeek  = EXCLUDED.TechnicalWeek , "Time"  = EXCLUDED."Time" , Url  = EXCLUDED.Url ,  Volume = EXCLUDED.Volume; 
 
- 
+ select * from public."InvestingComShares"
+  select * from public.investing_share_us
  
  delete from public."MorningStarShares" where "exchangeSymbol" in ('NYMT','FLIC','TFIN','KWE','CLEU','HMST','LANC','RSLS','BLUE','KIRK','PWOD','FARO','NWTN','FGF','VXRT','RMBL','XYLO','IKNA','VERV','PTMN','LSEA','CHX','IPA','RGLS','SSBK','JNVR','VSTE','GLYC','OB','MULN','CKPT','EMCG','STRM','THRD','CGBS','OCX','BRAC','SLRN','MCAA','ESSA','PARAA','LGMK','SNRE','SNPX','SAGE','BIGC','PLYA','ZVSA','AYRO','ZCAR','PRLH','PPBI','OPTN','ELEV','CSWI','RDUS','AGFY','CRGX','FHLT','LIPO','LDTC','TPIC','LTRY','PET','VERB','JUNE','SHLT','SRM','BLDE','HOOK','PARA','HEES','SYT','EBTC','MODV','KDLY','MCVT','ANSS','HOFV','FMTO','HSON','PTPI','MRIN','VCSA','SANW','VIRT','STRR','AMED','GMFI','EYEN','ATNF','GRYP','CCIR','ZAPP','JVSA','ESGR','CEAD','DIST','UBX','STAF','PLL','GAN','ICCT','DADA','BSGM','GOGL','SHYF','ITOS','HLXB','SWTX','OTRK','BPMC','') and "morningStarExchangeId" = 'xnas';
- delete from  public."MorningStarShares" where "exchangeSymbol" in ('WLGS','AKYA','WINT','OPOF','AHI','AVGR','TSVT','DATS','') and "morningStarExchangeId" = 'xnas';
+ delete from public."MorningStarShares" where "exchangeSymbol" in ('BPT','MTR','KIND','JNPR','ETWO','EVRI','AC','X','SKX','AZEK','OLO','') and "morningStarExchangeId" = 'xnys';
  
  
