@@ -317,7 +317,7 @@ and m.time > main."end" and main."end" + interval 6 hour > m.time order by "time
 
  from read_parquet('/home/ahfish/git/marketExecutor/marketExecutorRunner/GBPJPY_FIFTEEN_MINUTE_20210901T000000_20250927T000000_99.0.parquet') main where 
 trendType = 'Trend' and 
-abs(diff) >= breakingLevel99 + 0.06
+abs(diff) >= breakingLevel99 + 0.05
 and
 endTimeWeekDay in (
 'TUESDAY'
@@ -335,9 +335,137 @@ case
 end as priceCheck
 from gbpjpy_15m_reduce_v where grp >= '2021-10';
 
-select count(1) "all", 
-(select count(1) from gbpjpy_15m_reduce_check_v group by priceCheck having priceCheck is true) win,
-(select count(1) from gbpjpy_15m_reduce_check_v group by priceCheck having priceCheck is true)/count(1) * 100 "percentage"
-from gbpjpy_15m_reduce_check_v 
+
+
+select
+(select count(1) from gbpjpy_15m_reduce_check_v group by priceCheck HAVING priceCheck  = true) as success,
+(select count(1) from gbpjpy_15m_reduce_check_v group by priceCheck HAVING priceCheck  = false) as fail,
+(select count(1) from gbpjpy_15m_reduce_check_v ) as total,
+(select count(1) from gbpjpy_15m_reduce_check_v group by priceCheck HAVING priceCheck  = true)/(select count(1) from gbpjpy_15m_reduce_check_v ) *100 as ratio
+
+
+select * from gbpjpy_15m_reduce_check_v where priceCheck  = true order by start
+
+------------------------------------------------------------------------------------------------------------
+
+create or replace view gbpjpy_one_hour_reduce_v as
+select extract(YEAR FROM main."end") || '-' || strftime('%W', CAST(main."end" as date)) grp,
+main.high,
+main.low,
+main."start",
+main."end",
+main.breakingLevel99,
+abs(main.diff) diff,
+abs(main."scope") "scope",
+main.slopeLevel99,
+main.trendDirection,
+
+(select max(high) from
+(select high from marketPrice.main.market_price_gbpjpy_hourly m where
+extract(YEAR FROM m."time") || '-' || strftime('%W', CAST(m.time as date)) = extract(YEAR FROM main."end") || '-' || strftime('%W', CAST(main."end" as date))
+and m.time > main."end" order by "time" limit 24
+)
+) as weekHighAfter,
+
+(select min(low) from
+(select low from marketPrice.main.market_price_gbpjpy_hourly m where
+extract(YEAR FROM m."time") || '-' || strftime('%W', CAST(m.time as date)) = extract(YEAR FROM main."end") || '-' || strftime('%W', CAST(main."end" as date))
+and m.time > main."end" order by "time"  limit 24
+)
+) as weekLowAfter,
+
+(select arg_max(time, high) from
+(select high, "time" from  marketPrice.main.market_price_gbpjpy_hourly m where
+extract(YEAR FROM m."time") || '-' || strftime('%W', CAST(m.time as date)) = extract(YEAR FROM main."end") || '-' || strftime('%W', CAST(main."end" as date))
+and m.time > main."end" order by "time"  limit 24
+)
+) as highTime,
+
+(select arg_min(time, low) from
+(select low, "time" from  marketPrice.main.market_price_gbpjpy_hourly m where
+extract(YEAR FROM m."time") || '-' || strftime('%W', CAST(m.time as date)) = extract(YEAR FROM main."end") || '-' || strftime('%W', CAST(main."end" as date))
+and m.time > main."end" order by "time" limit 24
+)
+) as lowTime,
+
+ from read_parquet('/home/ahfish/git/marketExecutor/marketExecutorRunner/GBPJPY_ONE_HOUR_20170901T000000_20250927T000000_99.0.parquet') main where
+trendType = 'Trend' and
+abs(diff) >= breakingLevel99 
+and endTimeWeekDay in (
+'TUESDAY',
+--'MONDAY'
+--'WEDNESDAY'
+)
+order by extract(YEAR FROM main."end") || '-' || strftime('%W', CAST(main."end" as date));
+
+
+
+create or replace view gbpjpy_one_hour_reduce_check_v as
+select *,
+case
+	when trendDirection = 'BULLISH' then low < weekLowAfter and weekHighAfter > high
+	else high > weekHighAfter and weekLowAfter < low
+end as priceCheck
+from gbpjpy_one_hour_reduce_v where grp >= '2018-01';
+
+
+select
+(select count(1) from gbpjpy_one_hour_reduce_check_v group by priceCheck HAVING priceCheck  = true) as success,
+(select count(1) from gbpjpy_one_hour_reduce_check_v group by priceCheck HAVING priceCheck  = false) as fail,
+(select count(1) from gbpjpy_one_hour_reduce_check_v ) as total,
+(select count(1) from gbpjpy_one_hour_reduce_check_v group by priceCheck HAVING priceCheck  = true)/(select count(1) from gbpjpy_one_hour_reduce_check_v ) *100 as ratio
+
+
+-------------------
+
+
+
+
+create or replace view main_normalized as
+select * from read_parquet('/home/ahfish/git/marketExecutor/marketExecutorRunner/GBPJPY_ONE_HOUR_20170901T000000_20250927T000000_99.0.parquet') where trendType = 'NormalizedTrend' 
+
+
+select sameDirectionGount from read_parquet('/home/ahfish/git/marketExecutor/marketExecutorRunner/GBPJPY_ONE_HOUR_20170901T000000_20250927T000000_99.0.parquet') where trendType = 'NormalizedTrend' group by sameDirectionGount having count(1) == 1
+
+
+
+create or replace view sameDirectionAgg as
+select 
+min_by(startPrice, start) sameDirectionAggStartPrice,
+max_by(endPrice, start) sameDirectionAggEndPrice,
+max_by(lastDirection, lastDirection) sameDirectionAggLastDirection,
+max_by(high, high) sameDirectionAggHigh,
+min_by(low, low) sameDirectionAggLow,
+count(1) wave,
+sameDirectionGount as sameDirectionAggSameDirectionGount 
+from main_normalized where 
+trendType = 'NormalizedTrend' and 
+lastDirection == newDirection
+group by sameDirectionGount 
+
+select * from sameDirectionAgg
+
+select * from sameDirectionAgg
+
+select * from read_parquet('/home/ahfish/git/marketExecutor/marketExecutorRunner/GBPJPY_ONE_HOUR_20170901T000000_20250927T000000_99.0.parquet') where trendType = 'NormalizedTrend' and lastDirection != newDirection
+select * from read_parquet('/home/ahfish/git/marketExecutor/marketExecutorRunner/GBPJPY_ONE_HOUR_20170901T000000_20250927T000000_99.0.parquet') where trendType = 'Trend' and lastDirection != newDirection
+
+select * from read_parquet('/home/ahfish/git/marketExecutor/marketExecutorRunner/GBPJPY_ONE_HOUR_20170901T000000_20250927T000000_99.0.parquet') where sameDirectionGount  = 2
+
+select count(distinct sameDirectionGount) from read_parquet('/home/ahfish/git/marketExecutor/marketExecutorRunner/GBPJPY_ONE_HOUR_20170901T000000_20250927T000000_99.0.parquet') where trendType = 'NormalizedTrend' and lastDirection != newDirection
+
+select 
+main .*,
+sameDirectionAgg.sameDirectionAggSameDirectionGount,
+sameDirectionAgg.sameDirectionAggEndPrice,
+sameDirectionAggLastDirection,
+sameDirectionAggHigh,
+sameDirectionAggLow,
+wave
+from main_normalized main left join sameDirectionAgg on main.sameDirectionGount = sameDirectionAgg.sameDirectionAggSameDirectionGount
+where main .trendType = 'NormalizedTrend' and main.lastDirection != main.newDirection
+
+
+
 
 

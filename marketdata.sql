@@ -1446,6 +1446,8 @@ where
 
 SELECT * FROM information_schema.tables WHERE table_schema='public' and table_catalog = 'financialDetail' and lower(table_name) like '%us%' 
                       
-                      
+select * from market_price_gbpjpy_hourly order by time asc
 
 
+
+------------------------------------------------------------------------

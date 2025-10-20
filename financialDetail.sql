@@ -400,6 +400,7 @@ select * from public."MorningStarShares" where "morningStarExchangeId" = 'xnas' 
 
 select * from public."MorningStarShares" where "morningStarExchangeId" = 'xnse'  order by "marketCap" desc
 
+
 --- List table count
 WITH    tbl AS (
  SELECT Table_Schema, Table_Name
@@ -640,5 +641,7 @@ INSERT INTO investing_share_GE ( "Date", AvgVolume, Chg, ChgPct, CountryNameTran
  
  delete from public."MorningStarShares" where "exchangeSymbol" in ('NYMT','FLIC','TFIN','KWE','CLEU','HMST','LANC','RSLS','BLUE','KIRK','PWOD','FARO','NWTN','FGF','VXRT','RMBL','XYLO','IKNA','VERV','PTMN','LSEA','CHX','IPA','RGLS','SSBK','JNVR','VSTE','GLYC','OB','MULN','CKPT','EMCG','STRM','THRD','CGBS','OCX','BRAC','SLRN','MCAA','ESSA','PARAA','LGMK','SNRE','SNPX','SAGE','BIGC','PLYA','ZVSA','AYRO','ZCAR','PRLH','PPBI','OPTN','ELEV','CSWI','RDUS','AGFY','CRGX','FHLT','LIPO','LDTC','TPIC','LTRY','PET','VERB','JUNE','SHLT','SRM','BLDE','HOOK','PARA','HEES','SYT','EBTC','MODV','KDLY','MCVT','ANSS','HOFV','FMTO','HSON','PTPI','MRIN','VCSA','SANW','VIRT','STRR','AMED','GMFI','EYEN','ATNF','GRYP','CCIR','ZAPP','JVSA','ESGR','CEAD','DIST','UBX','STAF','PLL','GAN','ICCT','DADA','BSGM','GOGL','SHYF','ITOS','HLXB','SWTX','OTRK','BPMC','') and "morningStarExchangeId" = 'xnas';
  delete from public."MorningStarShares" where "exchangeSymbol" in ('BPT','MTR','KIND','JNPR','ETWO','EVRI','AC','X','SKX','AZEK','OLO','') and "morningStarExchangeId" = 'xnys';
+ 
+ delete from public."MorningStarShares" where "exchangeSymbol" in ('KMB','GMS','VHC','NOVA','FL','IGT','DNB','VOC','PBT','AZUL','BRDG','PVL','USM','SJT','BODI','AACT','AGS','BYON','TGI','SUP','BRFS','HES','') and "morningStarExchangeId" = 'xnys'
  
  
